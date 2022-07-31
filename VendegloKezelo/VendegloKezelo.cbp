@@ -20,6 +20,7 @@
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
 					<Add library="D:/CB/PGM-CB/sqlite3/bin/Release/libsqlite3.a" />
+					<Add library="C:/CB/PGM-CB/SQLite3/bin/Release/libSQLite3.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -37,6 +38,7 @@
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
 					<Add library="D:/CB/PGM-CB/sqlite3/bin/Release/libsqlite3.a" />
+					<Add library="C:/CB/PGM-CB/SQLite3/bin/Release/libSQLite3.a" />
 				</Linker>
 			</Target>
 		</Build>
