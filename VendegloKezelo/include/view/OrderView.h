@@ -33,7 +33,7 @@ namespace View
         protected:
 
         private:
-            std::vector<Model::Order> all_possible_orders;
+            std::vector<std::string> all_possible_orders;
             std::unique_ptr<Model::OrderModel> model;
 
             Fl_Int_Input* amount;
@@ -47,8 +47,18 @@ namespace View
             Fl_Text_Display* sum;
             Fl_Button* finnish_order;
 
-            void update_prepared_order(Model::Order order, bool add=true);
+            void add_to_prepared_order(Model::Order order, const std::string& table);
+            void remove_from_prepared_order(std::size_t index);
+            void update_prepared_order_sum();
             void update_prepared_order_count();
+            void set_to_zero();
+            Model::Order get_chosen_order(const std::string& choice) const;
+            // Move over to Model?
+            bool is_valid_amount(const std::string& amount) const;
+            bool is_valid_order_number(const std::string& order_number) const;
+            bool is_valid_choice(std::string choice) const;
+            bool is_valid_table_number(const std::string& table_number) const;
+            bool is_valid_positive_number(const std::string& number) const;
     };
 }
 

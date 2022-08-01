@@ -14,11 +14,14 @@ namespace Model
         public:
             OrderModel(std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p);
             void add_order(Order order);
-            void remove_order(int index);
-            Order get_order(int index) const;
-            std::vector<Order> get_all_possible_orders() const;
+            Order remove_order(int index);
+            Order get_order(const std::string& order) const;
+            std::vector<std::string> fetch_all_possible_orders();
             int tmp_order_count() const;
             int tmp_order_sum() const;
+            void finalize_order();
+            // TODO: Get from persistence
+            std::size_t get_table_count() const{return 3;};
             ~OrderModel();
 
         protected:
@@ -26,6 +29,7 @@ namespace Model
         private:
             std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>> persistence;
             std::vector<Order> prepared_order;
+            std::vector<Model::Order> all_possible_orders;
     };
 }
 

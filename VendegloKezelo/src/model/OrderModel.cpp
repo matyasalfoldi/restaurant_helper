@@ -1,5 +1,7 @@
 #include "model/OrderModel.h"
 
+#include <numeric>
+
 namespace Model
 {
     OrderModel::OrderModel(std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p)
@@ -12,19 +14,36 @@ namespace Model
         prepared_order.push_back(order);
     }
 
-    void OrderModel::remove_order(int index)
+    Order OrderModel::remove_order(int index)
     {
-        prepared_order.erase(prepared_order.begin() + index);
+        return *prepared_order.erase(prepared_order.begin() + index);
     }
 
-    Order OrderModel::get_order(int index) const
+    Order OrderModel::get_order(const std::string& order) const
     {
-        return prepared_order[index];
+        Order not_found;
+        for(const auto& o : all_possible_orders)
+        {
+            if(o.name == order)
+            {
+                return o;
+            }
+        }
+        return not_found;
     }
 
-    std::vector<Order> OrderModel::get_all_possible_orders() const
+    std::vector<std::string> OrderModel::fetch_all_possible_orders()
     {
-        return persistence->get();
+        all_possible_orders = persistence->get();
+        return std::accumulate(
+            all_possible_orders.begin(),
+            all_possible_orders.end(),
+            std::vector<std::string>(),
+            [](std::vector<std::string> order_names, Order order)
+            {
+                order_names.push_back(order.name);
+                return order_names;
+            });
     }
 
     int OrderModel::tmp_order_count() const
@@ -40,6 +59,14 @@ namespace Model
             sum += order.price;
         }
         return sum;
+    }
+
+    void OrderModel::finalize_order()
+    {
+        // TODO: Send to db through SqlitePersistence
+        // TODO: Write to file through TxtPersistence
+        // (create folder if not exists)
+        prepared_order.clear();
     }
 
     OrderModel::~OrderModel()
