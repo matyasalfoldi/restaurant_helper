@@ -7,7 +7,7 @@
 #include "model/Order.h"
 #include "persistence/Persistence.h"
 
-class TxtPersistence : public Persistence<Model::Order, std::vector<Model::Order>>
+class TxtPersistence : public Persistence<std::vector<Model::Order>, std::vector<Model::Order>>
 {
     public:
         TxtPersistence();

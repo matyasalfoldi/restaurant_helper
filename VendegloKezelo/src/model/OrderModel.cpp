@@ -2,7 +2,7 @@
 
 namespace Model
 {
-    OrderModel::OrderModel(std::unique_ptr<Persistence<Order, std::vector<Order>>>&& p)
+    OrderModel::OrderModel(std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p)
     {
         persistence = std::move(p);
     }
@@ -15,6 +15,11 @@ namespace Model
     void OrderModel::remove_order(int index)
     {
         prepared_order.erase(prepared_order.begin() + index);
+    }
+
+    Order OrderModel::get_order(int index) const
+    {
+        return prepared_order[index];
     }
 
     std::vector<Order> OrderModel::get_all_possible_orders() const

@@ -2,6 +2,7 @@
 #define INCOMETABLEMODEL_H
 
 #include <memory>
+#include <vector>
 
 #include "persistence/Persistence.h"
 
@@ -10,13 +11,13 @@ namespace Model
     class IncomeTableModel
     {
         public:
-            IncomeTableModel(std::weak_ptr<Persistence<int, int>>&& p);
+            IncomeTableModel(std::weak_ptr<Persistence<std::vector<int>, int>>&& p);
             ~IncomeTableModel();
 
         protected:
 
         private:
-            std::weak_ptr<Persistence<int, int>> persistence;
+            std::weak_ptr<Persistence<std::vector<int>, int>> persistence;
     };
 }
 

@@ -20,11 +20,11 @@ namespace View
 
         Fl_Group* group = new Fl_Group(x, y, w, h, "Income page");
         {
-            Fl_Button* calculate_sum = new Fl_Button(100, 150, 100, 30, "Calculate sum");
+            calculate_sum = new Fl_Button(100, 150, 100, 30, "Calculate sum");
             calculate_sum->callback(calculate_sum_callback, this);
 
-            Fl_Text_Buffer* sum_buffer = new Fl_Text_Buffer();
-            Fl_Text_Display* sum = new Fl_Text_Display(250, 150, 150, 30);
+            sum_buffer = new Fl_Text_Buffer();
+            sum = new Fl_Text_Display(250, 150, 150, 30);
             sum->buffer(sum_buffer);
             sum_buffer->text("0");
 

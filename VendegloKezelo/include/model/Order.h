@@ -7,6 +7,12 @@ namespace Model
 {
     struct Order
     {
+        Order()
+        : amount(-1), name(""), price(-1)
+        {}
+        Order(int a, std::string n, int p)
+        : amount(a), name(n), price(p)
+        {}
         int amount;
         std::string name;
         int price;
