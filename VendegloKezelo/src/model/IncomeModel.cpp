@@ -7,7 +7,7 @@ namespace Model
         persistence = std::move(p);
     }
 
-    std::weak_ptr<Persistence<std::vector<int>, int>> IncomeModel::get_persistence()
+    std::shared_ptr<Persistence<std::vector<int>, int>> IncomeModel::get_persistence()
     {
         return persistence;
     }

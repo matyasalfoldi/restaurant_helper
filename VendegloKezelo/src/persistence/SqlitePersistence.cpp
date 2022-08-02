@@ -20,7 +20,7 @@ SqlitePersistence::SqlitePersistence()
 {
     sqlite3_open("income.db", &db);
     sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS income(amount INT);", nullptr, NULL, NULL);
-    sqlite3_exec(db, "INSERT INTO income(amount) VALUES(1000), (2500), (1250);", nullptr, NULL, NULL);
+    //sqlite3_exec(db, "INSERT INTO income(amount) VALUES(1000), (2500), (1250);", nullptr, NULL, NULL);
 }
 
 std::vector<int> SqlitePersistence::get()

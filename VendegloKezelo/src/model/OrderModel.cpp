@@ -68,6 +68,7 @@ namespace Model
     {
         // TODO?: Write to file through TxtPersistence
         // (create folder if not exists)
+        // TODO: print out order
         for(const auto& order : prepared_order)
         {
             db->write(order.price);

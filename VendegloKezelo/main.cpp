@@ -14,7 +14,7 @@
 #include "model/IncomeModel.h"
 #include "model/OrderModel.h"
 
-int main (int argc, char ** argv)
+int main (int argc, char** argv)
 {
     std::shared_ptr<SqlitePersistence> db_conn = std::make_shared<SqlitePersistence>();
     std::unique_ptr<Model::IncomeModel> income_model = std::make_unique<Model::IncomeModel>(db_conn);
@@ -22,21 +22,22 @@ int main (int argc, char ** argv)
         std::make_unique<Model::OrderModel>(std::make_unique<TxtPersistence>(), db_conn);
     Fl_Window *window;
 
-    window = new Fl_Window (Fl::w(), Fl::h(), "Restaurant Helper");
+    window = new Fl_Window (Fl::w()-100, Fl::h()-100, "Restaurant Helper");
 
     Fl_Tabs* tabs = new Fl_Tabs(0, 0, Fl::w(), Fl::h());
     {
         View::OrderView* order_view =
             new View::OrderView(std::move(order_model),
-                0, 100, Fl::w(), Fl::h()-100);
+                0, 100, Fl::w()-100, Fl::h()-200);
         View::IncomeView* income_view =
             new View::IncomeView(std::move(income_model),
-                0, 100, Fl::w(), Fl::h()-100);
+                0, 100, Fl::w()-100, Fl::h()-200);
     }
     tabs->end();
 
     window->end ();
     window->show (argc, argv);
-
-    return(Fl::run());
+    Fl::run();
+    delete window;
+    return 0;
 }

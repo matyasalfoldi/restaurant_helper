@@ -11,13 +11,27 @@ namespace Model
     class IncomeTableModel
     {
         public:
-            IncomeTableModel(std::weak_ptr<Persistence<std::vector<int>, int>>&& p);
+            IncomeTableModel(std::shared_ptr<Persistence<std::vector<int>, int>> p);
+            std::size_t get_number_of_rows()
+            {
+                return incomes.size();
+            }
+            int get_data(int row, int col)
+            {
+                return incomes[row];
+            }
+            void reload_data()
+            {
+                incomes = persistence->get();
+            }
+
             ~IncomeTableModel();
 
         protected:
 
         private:
-            std::weak_ptr<Persistence<std::vector<int>, int>> persistence;
+            std::vector<int> incomes;
+            std::shared_ptr<Persistence<std::vector<int>, int>> persistence;
     };
 }
 
