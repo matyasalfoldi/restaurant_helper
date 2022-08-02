@@ -1,4 +1,9 @@
+#include <algorithm>
+#include <numeric>
 #include <sstream>
+
+#include <iterator>
+#include <ostream>
 
 #include "view/OrderView.h"
 
@@ -16,24 +21,11 @@ namespace View
 
     bool OrderView::is_valid_choice(std::string choice) const
     {
-        if(choice.empty())
-        {
-            return false;
-        }
-        //else if(std::find(
-        //            all_possible_orders.begin(),
-        //            all_possible_orders.end(),
-        //            choice) != all_possible_orders.end())
-        int index = 0;
-        while(index < all_possible_orders.size())
-        {
-            if(choice == all_possible_orders[index])
-            {
-                break;
-            }
-            ++index;
-        };
-        if(index == all_possible_orders.size())
+        if(choice.empty() ||
+           std::find(
+            all_possible_orders.begin(),
+            all_possible_orders.end(),
+            choice) == all_possible_orders.end())
         {
             return false;
         }
@@ -42,15 +34,9 @@ namespace View
 
     bool OrderView::is_valid_table_number(const std::string& table_number) const
     {
-        if(table_number.empty())
-        {
-            return false;
-        }
-        if(!is_valid_positive_number(table_number))
-        {
-            return false;
-        }
-        if(std::stoi(table_number) > model->get_table_count())
+        if(table_number.empty() ||
+           !is_valid_positive_number(table_number) ||
+           std::stoi(table_number) > model->get_table_count())
         {
             return false;
         }
@@ -133,16 +119,9 @@ namespace View
 
     bool OrderView::is_valid_order_number(const std::string& order_number) const
     {
-        if(order_number.empty())
-        {
-            return false;
-        }
-        // This should get negative numbers aswell
-        if(!is_valid_positive_number(order_number))
-        {
-            return false;
-        }
-        if(std::stoi(order_number) >= model->tmp_order_count())
+        if(order_number.empty() ||
+           !is_valid_positive_number(order_number) ||
+           std::stoi(order_number) >= model->tmp_order_count())
         {
             return false;
         }
@@ -180,6 +159,17 @@ namespace View
 
     void OrderView::remove_from_prepared_order(std::size_t index)
     {
+        auto compose_new_order =
+            [](std::string& new_order, const std::string& order_part)
+            {
+                if(new_order.empty())
+                {
+                    new_order = order_part;
+                }
+                {
+                    new_order = new_order+"\n"+order_part;
+                }
+            };
         std::stringstream ss{prepared_order->value()};
         std::string new_order = "";
         for(std::size_t i = 0; i < model->tmp_order_count(); ++i)
@@ -188,14 +178,7 @@ namespace View
             std::getline(ss, order_part, '\n');
             if(i != index)
             {
-                if(new_order.empty())
-                {
-                    new_order = order_part;
-                }
-                else
-                {
-                    new_order = new_order+"\n"+order_part;
-                }
+                compose_new_order(new_order, order_part);
             }
         }
         prepared_order->value(new_order.c_str());

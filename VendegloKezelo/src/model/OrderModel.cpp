@@ -4,9 +4,12 @@
 
 namespace Model
 {
-    OrderModel::OrderModel(std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p)
+    OrderModel::OrderModel(
+        std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p,
+        std::shared_ptr<Persistence<std::vector<int>, int>> d)
     {
         persistence = std::move(p);
+        db = d;
     }
 
     void OrderModel::add_order(Order order)
@@ -63,9 +66,12 @@ namespace Model
 
     void OrderModel::finalize_order()
     {
-        // TODO: Send to db through SqlitePersistence
-        // TODO: Write to file through TxtPersistence
+        // TODO?: Write to file through TxtPersistence
         // (create folder if not exists)
+        for(const auto& order : prepared_order)
+        {
+            db->write(order.price);
+        }
         prepared_order.clear();
     }
 

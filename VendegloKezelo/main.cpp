@@ -16,9 +16,10 @@
 
 int main (int argc, char ** argv)
 {
-    std::unique_ptr<Model::IncomeModel> income_model = std::make_unique<Model::IncomeModel>(std::make_shared<SqlitePersistence>());
+    std::shared_ptr<SqlitePersistence> db_conn = std::make_shared<SqlitePersistence>();
+    std::unique_ptr<Model::IncomeModel> income_model = std::make_unique<Model::IncomeModel>(db_conn);
     std::unique_ptr<Model::OrderModel> order_model =
-        std::make_unique<Model::OrderModel>(std::make_unique<TxtPersistence>());
+        std::make_unique<Model::OrderModel>(std::make_unique<TxtPersistence>(), db_conn);
     Fl_Window *window;
 
     window = new Fl_Window (Fl::w(), Fl::h(), "Restaurant Helper");
