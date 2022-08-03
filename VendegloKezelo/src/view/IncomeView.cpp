@@ -33,6 +33,10 @@ namespace View
         IncomeView* income_view = static_cast<IncomeView*>(view);
         bool show_all = income_view->show_all->value();
         std::string date = income_view->date_to_filter->value();
+        if(!date.empty() && !income_view->model->is_valid_date(date))
+        {
+            fl_message("Invalid date. Example format: 2022-01-02");
+        }
         income_view->income_table->draw_everything(show_all, date);
     }
 

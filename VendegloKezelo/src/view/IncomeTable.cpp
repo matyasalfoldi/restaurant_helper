@@ -76,14 +76,7 @@ namespace View
 
     void IncomeTable::draw_everything(bool show_all, std::string date)
     {
-        if(date.empty())
-        {
-            model->reload_data(show_all);
-        }
-        else
-        {
-            model->reload_data(show_all, date);
-        }
+        model->reload_data(show_all, date);
         clear();
         initialize();
     }

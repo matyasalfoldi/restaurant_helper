@@ -35,19 +35,19 @@ SqlitePersistence::SqlitePersistence()
     sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1500, date());", nullptr, NULL, NULL);*/
 }
 
-std::vector<Model::IncomeRow> SqlitePersistence::get(bool today_only)
+std::vector<Model::IncomeRow> SqlitePersistence::get(bool today_only, std::string date)
 {
     values.clear();
-    // TODO: include where clause that only gets Todays data
-    // TODO: get needs a flag that can get todays data only
-    //       (in the base class aswell)
-    // TODO: Modify the class to have std::vector<OrderRow> as return type
-    // and OrderRow as value
     std::string stmt = "SELECT Amount, OrderDate FROM incomes";
-    if(today_only)
+    if(!date.empty())
+    {
+        stmt += " WHERE OrderDate = date('"+date+"')";
+    }
+    else if(today_only)
     {
         stmt += " WHERE OrderDate = date()";
     }
+
     stmt += ";";
     sqlite3_exec(db, stmt.c_str(), sqlite_callback, this, NULL);
     return values;

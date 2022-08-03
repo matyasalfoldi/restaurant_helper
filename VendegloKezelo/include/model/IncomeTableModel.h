@@ -32,7 +32,7 @@ namespace Model
 
             void reload_data(bool show_all, std::string date="")
             {
-                incomes = persistence->get(!show_all);
+                incomes = persistence->get(!show_all, date);
             }
 
             ~IncomeTableModel();
