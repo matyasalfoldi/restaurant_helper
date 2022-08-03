@@ -11,7 +11,7 @@ class TxtPersistence : public Persistence<std::vector<Model::Order>, std::vector
 {
     public:
         TxtPersistence();
-        virtual std::vector<Model::Order> get() override;
+        virtual std::vector<Model::Order> get(bool today_only=true) override;
         virtual void write(std::vector<Model::Order>, bool new_data=true) override;
         virtual ~TxtPersistence();
 

@@ -61,6 +61,7 @@
 		<Unit filename="include/3rdparty/sqlite3.h" />
 		<Unit filename="include/3rdparty/sqlite3ext.h" />
 		<Unit filename="include/model/IncomeModel.h" />
+		<Unit filename="include/model/IncomeRow.h" />
 		<Unit filename="include/model/IncomeTableModel.h" />
 		<Unit filename="include/model/Order.h" />
 		<Unit filename="include/model/OrderModel.h" />

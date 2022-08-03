@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 
+#include "model/IncomeRow.h"
 #include "persistence/Persistence.h"
 
 namespace Model
@@ -11,18 +12,27 @@ namespace Model
     class IncomeTableModel
     {
         public:
-            IncomeTableModel(std::shared_ptr<Persistence<std::vector<int>, int>> p);
+            IncomeTableModel(std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> p);
             std::size_t get_number_of_rows()
             {
                 return incomes.size();
             }
-            int get_data(int row, int col)
+
+            std::string get_data(int row, int col)
             {
-                return incomes[row];
+                if(col == 0)
+                {
+                    return std::to_string(incomes[row].income);
+                }
+                else
+                {
+                    return incomes[row].date;
+                }
             }
-            void reload_data()
+
+            void reload_data(bool show_all, std::string date="")
             {
-                incomes = persistence->get();
+                incomes = persistence->get(!show_all);
             }
 
             ~IncomeTableModel();
@@ -30,8 +40,8 @@ namespace Model
         protected:
 
         private:
-            std::vector<int> incomes;
-            std::shared_ptr<Persistence<std::vector<int>, int>> persistence;
+            std::vector<Model::IncomeRow> incomes;
+            std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> persistence;
     };
 }
 

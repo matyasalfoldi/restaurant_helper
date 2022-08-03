@@ -1,12 +1,13 @@
 #include "model/OrderModel.h"
 
+#include <algorithm>
 #include <numeric>
 
 namespace Model
 {
     OrderModel::OrderModel(
         std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p,
-        std::shared_ptr<Persistence<std::vector<int>, int>> d)
+        std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> d)
     {
         persistence = std::move(p);
         db = d;
@@ -69,15 +70,71 @@ namespace Model
         // TODO?: Write to file through TxtPersistence
         // (create folder if not exists)
         // TODO: print out order
-        for(const auto& order : prepared_order)
-        {
-            db->write(order.price);
-        }
+        db->write(tmp_order_sum());
         prepared_order.clear();
     }
 
     OrderModel::~OrderModel()
     {
         //dtor
+    }
+
+
+    bool OrderModel::is_valid_choice(std::string choice) const
+    {
+        if (choice.empty() ||
+            std::find_if(
+                all_possible_orders.begin(),
+                all_possible_orders.end(),
+                [&](Order order)
+                {
+                    return order.name == choice;
+                }
+                ) == all_possible_orders.end()
+            )
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool OrderModel::is_valid_table_number(const std::string& table_number) const
+    {
+        if(table_number.empty() ||
+           !is_valid_positive_number(table_number) ||
+           std::stoi(table_number) > get_table_count())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool OrderModel::is_valid_amount(const std::string& amount) const
+    {
+        return !amount.empty() && std::stoi(amount) > 0;
+    }
+
+
+    bool OrderModel::is_valid_order_number(const std::string& order_number) const
+    {
+        if(order_number.empty() ||
+           !is_valid_positive_number(order_number) ||
+           std::stoi(order_number) >= tmp_order_count())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool OrderModel::is_valid_positive_number(const std::string& number) const
+    {
+        for(const auto& c : number)
+        {
+            if(!std::isdigit(c))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

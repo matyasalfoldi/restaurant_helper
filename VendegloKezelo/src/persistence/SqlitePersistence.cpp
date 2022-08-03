@@ -3,39 +3,63 @@
 #include <cstring>
 #include <string>
 
-int sqlite_callback(void* p, int count, char** data, char** columns)
+int SqlitePersistence::sqlite_callback(void* p, int count, char** data, char** columns)
 {
     SqlitePersistence* persistence = static_cast<SqlitePersistence*>(p);
     for(int i=0; i < count; ++i)
     {
-        if(strcmp(columns[i], "amount") == 0 && data[i])
+        if(strcmp(columns[i], "Amount") == 0 && data[i])
         {
             persistence->write(std::stoi(data[i]), false);
+        }
+        else if(strcmp(columns[i], "OrderDate") == 0 && data[i])
+        {
+            persistence->write(data[i]);
         }
     }
     return 0;
 }
 
+void SqlitePersistence::write(std::string date)
+{
+    values[values.size()-1].date = date;
+}
+
 SqlitePersistence::SqlitePersistence()
 {
     sqlite3_open("income.db", &db);
-    sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS income(amount INT);", nullptr, NULL, NULL);
-    //sqlite3_exec(db, "INSERT INTO income(amount) VALUES(1000), (2500), (1250);", nullptr, NULL, NULL);
+    sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS incomes(Amount INT, OrderDate TEXT);", nullptr, NULL, NULL);
+    // Test data
+    /*sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1000, date());", nullptr, NULL, NULL);
+    sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1300, date('now','-1 day'));", nullptr, NULL, NULL);
+    sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1500, date());", nullptr, NULL, NULL);*/
 }
 
-std::vector<int> SqlitePersistence::get()
+std::vector<Model::IncomeRow> SqlitePersistence::get(bool today_only)
 {
     values.clear();
-    sqlite3_exec(db, "SELECT amount FROM income;", sqlite_callback, this, NULL);
+    // TODO: include where clause that only gets Todays data
+    // TODO: get needs a flag that can get todays data only
+    //       (in the base class aswell)
+    // TODO: Modify the class to have std::vector<OrderRow> as return type
+    // and OrderRow as value
+    std::string stmt = "SELECT Amount, OrderDate FROM incomes";
+    if(today_only)
+    {
+        stmt += " WHERE OrderDate = date()";
+    }
+    stmt += ";";
+    sqlite3_exec(db, stmt.c_str(), sqlite_callback, this, NULL);
     return values;
 }
 
 void SqlitePersistence::write(int value, bool new_data)
 {
+    Model::IncomeRow order_row();
     values.push_back(value);
     if(new_data)
     {
-        std::string command = "INSERT INTO income(amount) VALUES("+std::to_string(value)+");";
+        std::string command = "INSERT INTO incomes(Amount, OrderDate) VALUES("+std::to_string(value)+", date());";
         sqlite3_exec(db, command.c_str(), nullptr, NULL, NULL);
     }
 }

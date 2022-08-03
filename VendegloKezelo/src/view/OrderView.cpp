@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <numeric>
 #include <sstream>
 
@@ -9,38 +8,9 @@
 
 namespace View
 {
-    bool OrderView::is_valid_amount(const std::string& amount) const
-    {
-        return !amount.empty() && std::stoi(amount) > 0;
-    }
-
     Model::Order OrderView::get_chosen_order(const std::string& choice) const
     {
         return model->get_order(choice);
-    }
-
-    bool OrderView::is_valid_choice(std::string choice) const
-    {
-        if(choice.empty() ||
-           std::find(
-            all_possible_orders.begin(),
-            all_possible_orders.end(),
-            choice) == all_possible_orders.end())
-        {
-            return false;
-        }
-        return true;
-    }
-
-    bool OrderView::is_valid_table_number(const std::string& table_number) const
-    {
-        if(table_number.empty() ||
-           !is_valid_positive_number(table_number) ||
-           std::stoi(table_number) > model->get_table_count())
-        {
-            return false;
-        }
-        return true;
     }
 
     void OrderView::add_to_order_callback(Fl_Widget *w, void *view)
@@ -48,7 +18,7 @@ namespace View
         OrderView* order_view = static_cast<OrderView*>(view);
         std::string samount = order_view->amount->value();
         int amount = -1;
-        if(order_view->is_valid_amount(samount))
+        if(order_view->model->is_valid_amount(samount))
         {
             amount = std::stoi(samount);
         }
@@ -58,13 +28,13 @@ namespace View
             return;
         }
         std::string choice = order_view->choices->value();
-        if(!order_view->is_valid_choice(choice))
+        if(!order_view->model->is_valid_choice(choice))
         {
             fl_message("No food/drink was chosen!");
             return;
         }
         std::string table = order_view->tables->value();
-        if(!order_view->is_valid_table_number(table))
+        if(!order_view->model->is_valid_table_number(table))
         {
             fl_message("Invalid table number!");
             return;
@@ -117,34 +87,11 @@ namespace View
         update_prepared_order_sum();
     }
 
-    bool OrderView::is_valid_order_number(const std::string& order_number) const
-    {
-        if(order_number.empty() ||
-           !is_valid_positive_number(order_number) ||
-           std::stoi(order_number) >= model->tmp_order_count())
-        {
-            return false;
-        }
-        return true;
-    }
-
-    bool OrderView::is_valid_positive_number(const std::string& number) const
-    {
-        for(const auto& c : number)
-        {
-            if(!std::isdigit(c))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     void OrderView::remove_from_order_callback(Fl_Widget *w, void *view)
     {
         OrderView* order_view = static_cast<OrderView*>(view);
         std::string sorder_number = order_view->row_to_delete->value();
-        if(!order_view->is_valid_order_number(sorder_number))
+        if(!order_view->model->is_valid_order_number(sorder_number))
         {
             fl_message("Invalid order number!");
             return;
@@ -166,6 +113,7 @@ namespace View
                 {
                     new_order = order_part;
                 }
+                else
                 {
                     new_order = new_order+"\n"+order_part;
                 }

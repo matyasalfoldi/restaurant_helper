@@ -344,7 +344,7 @@
 1637435434 d:\cb\fltk\fltk-1.3.8\fl\fl_tabs.h
 	"Fl_Group.H"
 
-1659451917 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\main.cpp
+1659508191 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\main.cpp
 	<string>
 	<vector>
 	<memory>
@@ -425,19 +425,20 @@
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_tabs.h
 	"Fl_Group.H"
 
-1659331428 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\persistence.h
+1659515758 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\persistence.h
 	<vector>
 
-1659331462 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\sqlitepersistence.h
+1659520595 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\sqlitepersistence.h
 	<string>
 	<map>
 	<3rdparty/sqlite3.h>
+	"model/IncomeRow.h"
 	"persistence/Persistence.h"
 
 1659286870 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\3rdparty\sqlite3.h
 	<stdarg.h>
 
-1659332237 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\txtpersistence.h
+1659515767 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\txtpersistence.h
 	<string>
 	<vector>
 	"model/Order.h"
@@ -446,7 +447,7 @@
 1659329418 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\order.h
 	<string>
 
-1659384286 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\orderview.h
+1659524579 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\orderview.h
 	<memory>
 	<string>
 	<vector>
@@ -595,23 +596,28 @@
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_valuator.h
 	"Fl_Widget.H"
 
-1659452329 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\ordermodel.h
+1659524407 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\ordermodel.h
 	<memory>
 	<vector>
+	"model/IncomeRow.h"
 	"model/Order.h"
 	"persistence/Persistence.h"
 
-1659330729 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incomeview.h
+1659517980 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incomeview.h
 	<memory>
+	<vector>
 	<FL/Fl.H>
 	<FL/Fl_ask.H>
 	<FL/Fl_Button.H>
+	<FL/Fl_Check_Button.H>
 	<FL/Fl_Text_Display.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Text_Buffer.H>
 	"persistence/Persistence.h"
 	"view/IncomeTable.h"
 	"model/IncomeModel.h"
 
-1659286870 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incometable.h
+1659518574 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incometable.h
 	<memory>
 	<vector>
 	<FL/Fl.H>
@@ -638,51 +644,65 @@
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_box.h
 	"Fl_Widget.H"
 
-1659332983 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incometablemodel.h
+1659518603 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incometablemodel.h
 	<memory>
 	<vector>
+	"model/IncomeRow.h"
 	"persistence/Persistence.h"
 
-1659332917 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incomemodel.h
+1659518152 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incomemodel.h
 	<memory>
 	<vector>
+	"model/IncomeRow.h"
 	"persistence/Persistence.h"
 
-1659332942 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incomemodel.cpp
+1659517041 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incomemodel.cpp
 	"model/IncomeModel.h"
 
-1659332851 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incometablemodel.cpp
+1659517169 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incometablemodel.cpp
 	"model/IncomeTableModel.h"
 
-1659452377 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\ordermodel.cpp
+1659517761 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\ordermodel.cpp
 	"model/OrderModel.h"
 	<numeric>
 
 1659286870 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\persistence\persistence.cpp
 	"persistence/Persistence.h"
 
-1659286870 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\persistence\sqlitepersistence.cpp
+1659520874 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\persistence\sqlitepersistence.cpp
 	"persistence/SqlitePersistence.h"
 	<cstring>
 	<string>
 
-1659332211 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\persistence\txtpersistence.cpp
+1659524300 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\persistence\txtpersistence.cpp
 	<fstream>
 	"persistence/TxtPersistence.h"
 
-1659286870 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incometable.cpp
+1659518679 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incometable.cpp
 	"view/IncomeTable.h"
 
-1659328601 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incomeview.cpp
+1659520828 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incomeview.cpp
+	<numeric>
 	"view/IncomeView.h"
 	"model/IncomeTableModel.h"
-	<FL/Fl.H>
-	<FL/Fl_Group.H>
-	<FL/Fl_Button.H>
-	<FL/Fl_Text_Buffer.H>
-	<FL/Fl_Text_Display.H>
+	"model/IncomeRow.h"
 
-1659380542 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\orderview.cpp
+1659524594 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\orderview.cpp
+	<numeric>
 	<sstream>
+	<iterator>
+	<ostream>
 	"view/OrderView.h"
+
+1659516660 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\orderrow.h
+	<string>
+
+1659516786 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incomerow.h
+	<string>
+
+1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_check_button.h
+	"Fl_Light_Button.H"
+
+1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_light_button.h
+	"Fl_Button.H"
 

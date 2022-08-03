@@ -2,12 +2,12 @@
 
 namespace Model
 {
-    IncomeModel::IncomeModel(std::shared_ptr<Persistence<std::vector<int>, int>>&& p)
+    IncomeModel::IncomeModel(std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>>&& p)
     {
         persistence = std::move(p);
     }
 
-    std::shared_ptr<Persistence<std::vector<int>, int>> IncomeModel::get_persistence()
+    std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> IncomeModel::get_persistence()
     {
         return persistence;
     }

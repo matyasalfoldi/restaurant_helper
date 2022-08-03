@@ -8,7 +8,7 @@ class Persistence
 {
     public:
         Persistence() = default;
-        virtual T get() = 0;
+        virtual T get(bool today_only=true) = 0;
         virtual void write(U, bool new_data=true) = 0;
         virtual ~Persistence() = default;
 

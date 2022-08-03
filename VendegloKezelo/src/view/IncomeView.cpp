@@ -2,27 +2,38 @@
 
 #include "view/IncomeView.h"
 #include "model/IncomeTableModel.h"
+#include "model/IncomeRow.h"
 
 namespace View
 {
     void IncomeView::calculate_sum_callback(Fl_Widget *w, void *view)
     {
-        IncomeView* order_view = static_cast<IncomeView*>(view);
-        std::vector<int> incomes = order_view->model->fetch_all_income();
-        order_view->sum_buffer->text(
+        IncomeView* income_view = static_cast<IncomeView*>(view);
+        bool show_all = income_view->show_all->value();
+        // TODO: validate input
+        std::string date = income_view->date_to_filter->value();
+        std::vector<Model::IncomeRow> incomes = income_view->model->fetch_all_income(show_all);
+        income_view->sum_buffer->text(
             std::to_string(
                 std::accumulate(
                     incomes.begin(),
                     incomes.end(),
-                    0)
+                    0,
+                    [](int accumulated_income, Model::IncomeRow next_income)
+                    {
+                        return accumulated_income + next_income.income;
+                    })
             ).c_str()
         );
+        income_view->income_table->draw_everything(show_all);
     }
 
     void IncomeView::reload_table_callback(Fl_Widget *w, void *view)
     {
-        IncomeView* order_view = static_cast<IncomeView*>(view);
-        order_view->income_table->draw_everything();
+        IncomeView* income_view = static_cast<IncomeView*>(view);
+        bool show_all = income_view->show_all->value();
+        std::string date = income_view->date_to_filter->value();
+        income_view->income_table->draw_everything(show_all, date);
     }
 
     IncomeView::IncomeView(std::unique_ptr<Model::IncomeModel>&& m, int x, int y, int w, int h)
@@ -37,10 +48,14 @@ namespace View
             reload_table = new Fl_Button(450, 150, 100, 30, "Reload");
             reload_table->callback(reload_table_callback, this);
 
+            show_all = new Fl_Check_Button(450, 200, 150, 30, "Show all income");
+
             sum_buffer = new Fl_Text_Buffer();
             sum = new Fl_Text_Display(250, 150, 150, 30);
             sum->buffer(sum_buffer);
             sum_buffer->text("0");
+
+            date_to_filter = new Fl_Input(100, 200, 100, 30, "Filter for date:");
 
             income_table = new IncomeTable(
                 std::make_unique<Model::IncomeTableModel>(

@@ -54,11 +54,7 @@ namespace View
             void set_to_zero();
             Model::Order get_chosen_order(const std::string& choice) const;
             // Move over to Model?
-            bool is_valid_amount(const std::string& amount) const;
-            bool is_valid_order_number(const std::string& order_number) const;
-            bool is_valid_choice(std::string choice) const;
-            bool is_valid_table_number(const std::string& table_number) const;
-            bool is_valid_positive_number(const std::string& number) const;
+
     };
 }
 
