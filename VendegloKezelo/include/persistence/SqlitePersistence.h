@@ -4,7 +4,7 @@
 #include <3rdparty/sqlite3.h>
 
 #include "model/IncomeRow.h"
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 
 class SqlitePersistence : public DataStore<std::vector<Model::IncomeRow>, int>
 {

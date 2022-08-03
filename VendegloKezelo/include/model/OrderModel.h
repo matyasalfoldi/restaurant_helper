@@ -6,7 +6,7 @@
 
 #include "model/IncomeRow.h"
 #include "model/Order.h"
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 
 namespace Model
 {

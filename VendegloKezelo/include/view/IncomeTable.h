@@ -9,7 +9,7 @@
 #include <FL/Fl_Table.H>
 
 #include "model/IncomeTableModel.h"
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 
 namespace View
 {

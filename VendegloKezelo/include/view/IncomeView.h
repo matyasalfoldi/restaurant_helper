@@ -13,7 +13,7 @@
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Text_Buffer.H>
 
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 #include "view/IncomeTable.h"
 #include "model/IncomeModel.h"
 
@@ -23,10 +23,6 @@ namespace View
     {
         public:
             IncomeView(std::unique_ptr<Model::IncomeModel>&& m, int x, int y, int w, int h);
-            static void calculate_sum_callback(Fl_Widget* w, void* view);
-            static void reload_table_callback(Fl_Widget* w, void* view);
-            static void filter_callback(Fl_Widget* w, void* view);
-            static void show_all_callback(Fl_Widget* w, void* view);
             ~IncomeView();
 
         protected:
@@ -41,6 +37,11 @@ namespace View
             Fl_Text_Buffer* sum_buffer;
             Fl_Text_Display* sum;
             Fl_Input* date_to_filter;
+
+            static void calculate_sum_callback(Fl_Widget* w, void* view);
+            static void reload_table_callback(Fl_Widget* w, void* view);
+            static void filter_callback(Fl_Widget* w, void* view);
+            static void show_all_callback(Fl_Widget* w, void* view);
     };
 }
 

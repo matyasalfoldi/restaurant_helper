@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "model/IncomeRow.h"
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 
 namespace Model
 {

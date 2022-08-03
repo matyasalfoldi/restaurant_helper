@@ -25,9 +25,6 @@ namespace View
     {
         public:
             OrderView(std::unique_ptr<Model::OrderModel>&& m, int x, int y, int w, int h);
-            static void add_to_order_callback(Fl_Widget *w, void *view);
-            static void finnish_order_callback(Fl_Widget *w, void *view);
-            static void remove_from_order_callback(Fl_Widget *w, void *view);
             ~OrderView();
 
         protected:
@@ -53,8 +50,10 @@ namespace View
             void update_prepared_order_count();
             void set_to_zero();
             Model::Order get_chosen_order(const std::string& choice) const;
-            // Move over to Model?
 
+            static void add_to_order_callback(Fl_Widget *w, void *view);
+            static void finnish_order_callback(Fl_Widget *w, void *view);
+            static void remove_from_order_callback(Fl_Widget *w, void *view);
     };
 }
 

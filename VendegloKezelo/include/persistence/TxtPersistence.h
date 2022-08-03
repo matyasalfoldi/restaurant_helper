@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "model/Order.h"
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 
 class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<Model::Order>>
 {
