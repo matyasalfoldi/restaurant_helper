@@ -65,7 +65,7 @@
 		<Unit filename="include/model/IncomeTableModel.h" />
 		<Unit filename="include/model/Order.h" />
 		<Unit filename="include/model/OrderModel.h" />
-		<Unit filename="include/persistence/Persistence.h" />
+		<Unit filename="include/persistence/DataStore.h" />
 		<Unit filename="include/persistence/SqlitePersistence.h" />
 		<Unit filename="include/persistence/TxtPersistence.h" />
 		<Unit filename="include/view/IncomeTable.h" />
