@@ -1,18 +1,17 @@
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include <FL/Fl.H>
-#include <FL/Fl_Window.H>
 #include <FL/Fl_Tabs.H>
+#include <FL/Fl_Window.H>
 
-#include "persistence/DataStore.h"
-#include "persistence/SqlitePersistence.h"
-#include "persistence/TxtPersistence.h"
-#include "view/OrderView.h"
-#include "view/IncomeView.h"
 #include "model/IncomeModel.h"
 #include "model/OrderModel.h"
+#include "persistence/SqlitePersistence.h"
+#include "persistence/TxtPersistence.h"
+#include "view/IncomeView.h"
+#include "view/OrderView.h"
 
 int main (int argc, char** argv)
 {

@@ -2,9 +2,9 @@
 #define INCOMEMODEL_H
 
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
 
 #include "model/IncomeRow.h"
 #include "persistence/DataStore.h"

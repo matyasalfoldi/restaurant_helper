@@ -8,14 +8,13 @@
 #include <FL/Fl_ask.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Check_Button.H>
-#include <FL/Fl_Input.H>
-#include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Group.H>
+#include <FL/Fl_Input.H>
 #include <FL/Fl_Text_Buffer.H>
+#include <FL/Fl_Text_Display.H>
 
-#include "persistence/DataStore.h"
-#include "view/IncomeTable.h"
 #include "model/IncomeModel.h"
+#include "view/IncomeTable.h"
 
 namespace View
 {
