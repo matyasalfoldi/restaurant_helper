@@ -54,14 +54,14 @@ std::vector<Model::Order> TxtPersistence::get(bool today_only, std::string date)
     return possible_orders;
 }
 
-void TxtPersistence::write(std::vector<Model::Order>, bool new_data)
-{
-
-}
-
 std::vector<std::string> TxtPersistence::get_column_headers() const
 {
     return std::vector<std::string>();
+}
+
+void TxtPersistence::write(std::vector<Model::Order>, bool new_data)
+{
+
 }
 
 TxtPersistence::~TxtPersistence()

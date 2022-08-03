@@ -9,9 +9,14 @@ namespace Model
         headers = persistence->get_column_headers();
     }
 
-    std::size_t IncomeTableModel::get_number_of_rows() const
+    std::size_t IncomeTableModel::get_column_count() const
     {
-        return incomes.size();
+        return headers.size();
+    }
+
+    std::string IncomeTableModel::get_column_header(int col) const
+    {
+        return headers[col];
     }
 
     std::string IncomeTableModel::get_data(int row, int col) const
@@ -26,14 +31,9 @@ namespace Model
         }
     }
 
-    std::string IncomeTableModel::get_column_header(int col) const
+    std::size_t IncomeTableModel::get_number_of_rows() const
     {
-        return headers[col];
-    }
-
-    std::size_t IncomeTableModel::get_column_count() const
-    {
-        return headers.size();
+        return incomes.size();
     }
 
     void IncomeTableModel::reload_data(bool show_all, std::string date)

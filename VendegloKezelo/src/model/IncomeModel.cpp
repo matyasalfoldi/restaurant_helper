@@ -13,6 +13,11 @@ namespace Model
         return incomes;
     }
 
+    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> IncomeModel::get_persistence()
+    {
+        return persistence;
+    }
+
     bool IncomeModel::is_valid_date(std::string date) const
     {
         // YYYY-MM-DD
@@ -36,11 +41,6 @@ namespace Model
             }
         }
         return true;
-    }
-
-    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> IncomeModel::get_persistence()
-    {
-        return persistence;
     }
 
     IncomeModel::~IncomeModel()

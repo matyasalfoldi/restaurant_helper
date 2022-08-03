@@ -12,8 +12,8 @@ class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<M
     public:
         TxtPersistence();
         virtual std::vector<Model::Order> get(bool today_only=true, std::string date="") override;
-        virtual void write(std::vector<Model::Order>, bool new_data=true) override;
         virtual std::vector<std::string> get_column_headers() const override;
+        virtual void write(std::vector<Model::Order>, bool new_data=true) override;
         virtual ~TxtPersistence();
 
     protected:

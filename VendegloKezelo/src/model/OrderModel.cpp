@@ -18,9 +18,25 @@ namespace Model
         prepared_order.push_back(order);
     }
 
-    Order OrderModel::remove_order(int index)
+    std::vector<std::string> OrderModel::fetch_all_possible_orders()
     {
-        return *prepared_order.erase(prepared_order.begin() + index);
+        all_possible_orders = persistence->get();
+        return std::accumulate(
+            all_possible_orders.begin(),
+            all_possible_orders.end(),
+            std::vector<std::string>(),
+            [](std::vector<std::string> order_names, Order order)
+            {
+                order_names.push_back(order.name);
+                return order_names;
+            });
+    }
+
+    void OrderModel::finalize_order()
+    {
+        // TODO: print out order to printer
+        db->write(tmp_order_sum());
+        prepared_order.clear();
     }
 
     Order OrderModel::get_order(const std::string& order) const
@@ -36,18 +52,9 @@ namespace Model
         return not_found;
     }
 
-    std::vector<std::string> OrderModel::fetch_all_possible_orders()
+    Order OrderModel::remove_order(int index)
     {
-        all_possible_orders = persistence->get();
-        return std::accumulate(
-            all_possible_orders.begin(),
-            all_possible_orders.end(),
-            std::vector<std::string>(),
-            [](std::vector<std::string> order_names, Order order)
-            {
-                order_names.push_back(order.name);
-                return order_names;
-            });
+        return *prepared_order.erase(prepared_order.begin() + index);
     }
 
     int OrderModel::tmp_order_count() const
@@ -65,18 +72,10 @@ namespace Model
         return sum;
     }
 
-    void OrderModel::finalize_order()
+    bool OrderModel::is_valid_amount(const std::string& amount) const
     {
-        // TODO: print out order
-        db->write(tmp_order_sum());
-        prepared_order.clear();
+        return !amount.empty() && std::stoi(amount) > 0;
     }
-
-    OrderModel::~OrderModel()
-    {
-        //dtor
-    }
-
 
     bool OrderModel::is_valid_choice(std::string choice) const
     {
@@ -95,23 +94,6 @@ namespace Model
         }
         return true;
     }
-
-    bool OrderModel::is_valid_table_number(const std::string& table_number) const
-    {
-        if(table_number.empty() ||
-           !is_valid_positive_number(table_number) ||
-           std::stoi(table_number) > get_table_count())
-        {
-            return false;
-        }
-        return true;
-    }
-
-    bool OrderModel::is_valid_amount(const std::string& amount) const
-    {
-        return !amount.empty() && std::stoi(amount) > 0;
-    }
-
 
     bool OrderModel::is_valid_order_number(const std::string& order_number) const
     {
@@ -134,5 +116,21 @@ namespace Model
             }
         }
         return true;
+    }
+
+    bool OrderModel::is_valid_table_number(const std::string& table_number) const
+    {
+        if(table_number.empty() ||
+           !is_valid_positive_number(table_number) ||
+           std::stoi(table_number) > get_table_count())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    OrderModel::~OrderModel()
+    {
+        //dtor
     }
 }

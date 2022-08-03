@@ -45,12 +45,13 @@ namespace View
             Fl_Button* finnish_order;
 
             void add_to_prepared_order(Model::Order order, const std::string& table);
+            Model::Order get_chosen_order(const std::string& choice) const;
             void remove_from_prepared_order(std::size_t index);
+            void set_to_zero();
             void update_prepared_order_sum();
             void update_prepared_order_count();
-            void set_to_zero();
-            Model::Order get_chosen_order(const std::string& choice) const;
 
+            // Callbacks
             static void add_to_order_callback(Fl_Widget *w, void *view);
             static void finnish_order_callback(Fl_Widget *w, void *view);
             static void remove_from_order_callback(Fl_Widget *w, void *view);

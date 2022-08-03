@@ -14,10 +14,10 @@ namespace Model
     {
         public:
             IncomeTableModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> p);
-            std::size_t get_number_of_rows() const;
-            std::string get_data(int row, int col) const;
             std::string get_column_header(int col) const;
             std::size_t get_column_count() const;
+            std::string get_data(int row, int col) const;
+            std::size_t get_number_of_rows() const;
             void reload_data(bool show_all, std::string date="");
             ~IncomeTableModel();
 

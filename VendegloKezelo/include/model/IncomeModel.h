@@ -15,10 +15,10 @@ namespace Model
     {
         public:
             IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>>&& p);
-            ~IncomeModel();
             std::vector<Model::IncomeRow> fetch_all_income(bool show_all, std::string date);
-            bool is_valid_date(std::string date) const;
             std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> get_persistence();
+            bool is_valid_date(std::string date) const;
+            ~IncomeModel();
         protected:
 
         private:
