@@ -75,7 +75,6 @@
 		<Unit filename="src/model/IncomeModel.cpp" />
 		<Unit filename="src/model/IncomeTableModel.cpp" />
 		<Unit filename="src/model/OrderModel.cpp" />
-		<Unit filename="src/persistence/Persistence.cpp" />
 		<Unit filename="src/persistence/SqlitePersistence.cpp" />
 		<Unit filename="src/persistence/TxtPersistence.cpp" />
 		<Unit filename="src/view/IncomeTable.cpp" />
