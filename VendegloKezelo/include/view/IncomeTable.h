@@ -17,13 +17,11 @@ namespace View
     {
         public:
             IncomeTable(std::unique_ptr<Model::IncomeTableModel>&& m, int X, int Y, int W, int H, const char *L=0);
-
             void initialize();
             void DrawHeader(const char *s, int X, int Y, int W, int H);
             void DrawData(const char *s, int X, int Y, int W, int H);
             void draw_cell(TableContext context, int row=0, int col=0, int x=0, int y=0, int w=0, int h=0);
             void draw_everything(bool show_all, std::string date="");
-
             virtual ~IncomeTable();
 
         protected:

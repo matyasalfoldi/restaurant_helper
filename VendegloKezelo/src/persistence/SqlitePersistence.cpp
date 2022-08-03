@@ -1,5 +1,6 @@
 #include "persistence/SqlitePersistence.h"
 
+#include <algorithm>
 #include <cstring>
 #include <string>
 
@@ -8,6 +9,7 @@ int SqlitePersistence::sqlite_callback(void* p, int count, char** data, char** c
     SqlitePersistence* persistence = static_cast<SqlitePersistence*>(p);
     for(int i=0; i < count; ++i)
     {
+        persistence->write_headers(columns[i]);
         if(strcmp(columns[i], "Amount") == 0 && data[i])
         {
             persistence->write(std::stoi(data[i]), false);
@@ -23,6 +25,14 @@ int SqlitePersistence::sqlite_callback(void* p, int count, char** data, char** c
 void SqlitePersistence::write(std::string date)
 {
     values[values.size()-1].date = date;
+}
+
+void SqlitePersistence::write_headers(std::string header)
+{
+    if(std::find(headers.begin(), headers.end(), header) == headers.end())
+    {
+        headers.push_back(header);
+    }
 }
 
 SqlitePersistence::SqlitePersistence()
@@ -51,6 +61,11 @@ std::vector<Model::IncomeRow> SqlitePersistence::get(bool today_only, std::strin
     stmt += ";";
     sqlite3_exec(db, stmt.c_str(), sqlite_callback, this, NULL);
     return values;
+}
+
+std::vector<std::string> SqlitePersistence::get_column_headers() const
+{
+    return headers;
 }
 
 void SqlitePersistence::write(int value, bool new_data)

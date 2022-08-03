@@ -67,8 +67,6 @@ namespace Model
 
     void OrderModel::finalize_order()
     {
-        // TODO?: Write to file through TxtPersistence
-        // (create folder if not exists)
         // TODO: print out order
         db->write(tmp_order_sum());
         prepared_order.clear();

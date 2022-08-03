@@ -18,8 +18,7 @@ namespace View
         row_height_all(20);
         row_resize(0);
 
-        // Change it later on if more columns will be
-        cols(2);
+        cols(model->get_column_count());
         col_header(1);
         col_width_all(100);
         col_resize(1);
@@ -60,8 +59,7 @@ namespace View
             fl_font(FL_HELVETICA, 16);
             return;
           case CONTEXT_COL_HEADER:
-            // TODO: get model which gets a col, and returns the header
-            DrawHeader(col == 0 ? "income" : "date", x, y, w, h);
+            DrawHeader(model->get_column_header(col).c_str(), x, y, w, h);
             return;
           case CONTEXT_ROW_HEADER:
             DrawHeader(std::to_string(row).c_str(), x, y, w, h);

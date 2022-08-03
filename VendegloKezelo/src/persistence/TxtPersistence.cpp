@@ -59,6 +59,11 @@ void TxtPersistence::write(std::vector<Model::Order>, bool new_data)
 
 }
 
+std::vector<std::string> TxtPersistence::get_column_headers() const
+{
+    return std::vector<std::string>();
+}
+
 TxtPersistence::~TxtPersistence()
 {
     //dtor

@@ -2,6 +2,7 @@
 #define INCOMETABLEMODEL_H
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "model/IncomeRow.h"
@@ -13,34 +14,18 @@ namespace Model
     {
         public:
             IncomeTableModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> p);
-            std::size_t get_number_of_rows()
-            {
-                return incomes.size();
-            }
-
-            std::string get_data(int row, int col)
-            {
-                if(col == 0)
-                {
-                    return std::to_string(incomes[row].income);
-                }
-                else
-                {
-                    return incomes[row].date;
-                }
-            }
-
-            void reload_data(bool show_all, std::string date="")
-            {
-                incomes = persistence->get(!show_all, date);
-            }
-
+            std::size_t get_number_of_rows() const;
+            std::string get_data(int row, int col) const;
+            std::string get_column_header(int col) const;
+            std::size_t get_column_count() const;
+            void reload_data(bool show_all, std::string date="");
             ~IncomeTableModel();
 
         protected:
 
         private:
             std::vector<Model::IncomeRow> incomes;
+            std::vector<std::string> headers;
             std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> persistence;
     };
 }

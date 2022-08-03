@@ -11,6 +11,7 @@ class DataStore
         DataStore() = default;
         virtual T get(bool today_only=true, std::string date="") = 0;
         virtual void write(U, bool new_data=true) = 0;
+        virtual std::vector<std::string> get_column_headers() const = 0;
         virtual ~DataStore() = default;
 
     protected:

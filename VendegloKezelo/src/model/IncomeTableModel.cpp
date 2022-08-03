@@ -6,6 +6,39 @@ namespace Model
     {
         persistence = std::move(p);
         incomes = persistence->get();
+        headers = persistence->get_column_headers();
+    }
+
+    std::size_t IncomeTableModel::get_number_of_rows() const
+    {
+        return incomes.size();
+    }
+
+    std::string IncomeTableModel::get_data(int row, int col) const
+    {
+        if(col == 0)
+        {
+            return std::to_string(incomes[row].income);
+        }
+        else
+        {
+            return incomes[row].date;
+        }
+    }
+
+    std::string IncomeTableModel::get_column_header(int col) const
+    {
+        return headers[col];
+    }
+
+    std::size_t IncomeTableModel::get_column_count() const
+    {
+        return headers.size();
+    }
+
+    void IncomeTableModel::reload_data(bool show_all, std::string date)
+    {
+        incomes = persistence->get(!show_all, date);
     }
 
     IncomeTableModel::~IncomeTableModel()
