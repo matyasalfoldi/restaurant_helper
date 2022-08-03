@@ -6,7 +6,7 @@
 #include "model/IncomeRow.h"
 #include "persistence/Persistence.h"
 
-class SqlitePersistence : public Persistence<std::vector<Model::IncomeRow>, int>
+class SqlitePersistence : public DataStore<std::vector<Model::IncomeRow>, int>
 {
 public:
     SqlitePersistence();

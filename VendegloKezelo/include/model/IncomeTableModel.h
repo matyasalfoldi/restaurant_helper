@@ -12,7 +12,7 @@ namespace Model
     class IncomeTableModel
     {
         public:
-            IncomeTableModel(std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> p);
+            IncomeTableModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> p);
             std::size_t get_number_of_rows()
             {
                 return incomes.size();
@@ -41,7 +41,7 @@ namespace Model
 
         private:
             std::vector<Model::IncomeRow> incomes;
-            std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> persistence;
+            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> persistence;
     };
 }
 

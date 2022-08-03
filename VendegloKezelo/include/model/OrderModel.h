@@ -13,8 +13,8 @@ namespace Model
     class OrderModel
     {
         public:
-            OrderModel(std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p,
-                       std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> db_conn);
+            OrderModel(std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>>&& p,
+                       std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db_conn);
             void add_order(Order order);
             Order remove_order(int index);
             Order get_order(const std::string& order) const;
@@ -35,8 +35,8 @@ namespace Model
         protected:
 
         private:
-            std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>> persistence;
-            std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> db;
+            std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>> persistence;
+            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db;
             std::vector<Order> prepared_order;
             std::vector<Model::Order> all_possible_orders;
     };

@@ -6,8 +6,8 @@
 namespace Model
 {
     OrderModel::OrderModel(
-        std::unique_ptr<Persistence<std::vector<Order>, std::vector<Order>>>&& p,
-        std::shared_ptr<Persistence<std::vector<Model::IncomeRow>, int>> d)
+        std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>>&& p,
+        std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> d)
     {
         persistence = std::move(p);
         db = d;

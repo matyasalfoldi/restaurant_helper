@@ -5,13 +5,13 @@
 #include <vector>
 
 template <typename T, typename U>
-class Persistence
+class DataStore
 {
     public:
-        Persistence() = default;
+        DataStore() = default;
         virtual T get(bool today_only=true, std::string date="") = 0;
         virtual void write(U, bool new_data=true) = 0;
-        virtual ~Persistence() = default;
+        virtual ~DataStore() = default;
 
     protected:
 

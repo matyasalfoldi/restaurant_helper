@@ -26,6 +26,7 @@ namespace View
             static void calculate_sum_callback(Fl_Widget* w, void* view);
             static void reload_table_callback(Fl_Widget* w, void* view);
             static void filter_callback(Fl_Widget* w, void* view);
+            static void show_all_callback(Fl_Widget* w, void* view);
             ~IncomeView();
 
         protected:
