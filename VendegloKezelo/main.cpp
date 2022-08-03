@@ -6,7 +6,7 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Tabs.H>
 
-#include "persistence/Persistence.h"
+#include "persistence/DataStore.h"
 #include "persistence/SqlitePersistence.h"
 #include "persistence/TxtPersistence.h"
 #include "view/OrderView.h"
