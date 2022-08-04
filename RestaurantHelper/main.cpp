@@ -30,21 +30,25 @@ int main (int argc, char** argv)
     // thus not manually deleting child elements is not a problem
     Fl_Window* window = new Fl_Window (Fl::w()-100, Fl::h()-100, "Restaurant Helper");
 
+    View::OrderView* order_view;
+    View::IncomeView* income_view;
     Fl_Tabs* tabs = new Fl_Tabs(0, 0, Fl::w(), Fl::h());
     {
-        View::OrderView* order_view =
+        order_view =
             new View::OrderView(std::move(order_controller),
                 0, 100, Fl::w()-100, Fl::h()-200);
 
-        View::IncomeView* income_view =
+        income_view =
             new View::IncomeView(std::move(income_controller),
                 0, 100, Fl::w()-100, Fl::h()-200);
     }
     tabs->end();
 
-    window->end ();
+    window->end();
     window->show(argc, argv);
-    Fl::run();
+    int ret = Fl::run();
+    delete order_view;
+    delete income_view;
     delete window;
-    return 0;
+    return ret;
 }
