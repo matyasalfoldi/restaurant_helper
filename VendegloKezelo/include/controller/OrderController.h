@@ -16,12 +16,6 @@ namespace Controller
             OrderController(std::unique_ptr<Model::OrderModel>&& m);
             void update();
             ~OrderController();
-            int test()
-            {
-                int x = 1;
-                int y = 2;
-                return 1;
-            }
             void connect(Model::Update_Func update_func)
             {
                 model->connect(update_func);
