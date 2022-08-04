@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RestaurantHelper" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/RestaurantHelper" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="include/controller" />
+				</Compiler>
+				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
+					<Add library="../../sqlite3/bin/Release/libsqlite3.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/RestaurantHelper" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-s" />
+					<Add directory="include" />
+					<Add directory="include/controller" />
+				</Compiler>
+				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
+					<Add library="../../sqlite3/bin/Release/libsqlite3.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DWIN32" />
+			<Add option="-mms-bitfields" />
+			<Add directory="$(#fl)" />
+		</Compiler>
+		<Linker>
+			<Add library="fltk" />
+			<Add library="ole32" />
+			<Add library="uuid" />
+			<Add library="comctl32" />
+			<Add library="wsock32" />
+			<Add library="m" />
+			<Add library="gdi32" />
+			<Add library="gdiplus" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+			<Add directory="$(#fl.lib)" />
+		</Linker>
+		<Unit filename="include/3rdparty/sqlite3.h" />
+		<Unit filename="include/3rdparty/sqlite3ext.h" />
+		<Unit filename="include/controller/CallbackStore.h" />
+		<Unit filename="include/controller/IncomeController.h" />
+		<Unit filename="include/controller/IncomeTableController.h" />
+		<Unit filename="include/controller/OrderController.h" />
+		<Unit filename="include/model/IncomeModel.h" />
+		<Unit filename="include/model/IncomeRow.h" />
+		<Unit filename="include/model/IncomeTableModel.h" />
+		<Unit filename="include/model/Order.h" />
+		<Unit filename="include/model/OrderModel.h" />
+		<Unit filename="include/persistence/DataStore.h" />
+		<Unit filename="include/persistence/SqlitePersistence.h" />
+		<Unit filename="include/persistence/TxtPersistence.h" />
+		<Unit filename="include/view/IncomeTable.h" />
+		<Unit filename="include/view/IncomeView.h" />
+		<Unit filename="include/view/OrderView.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/controller/IncomeController.cpp" />
+		<Unit filename="src/controller/IncomeTableController.cpp" />
+		<Unit filename="src/controller/OrderController.cpp" />
+		<Unit filename="src/model/IncomeModel.cpp" />
+		<Unit filename="src/model/IncomeTableModel.cpp" />
+		<Unit filename="src/model/OrderModel.cpp" />
+		<Unit filename="src/persistence/SqlitePersistence.cpp" />
+		<Unit filename="src/persistence/TxtPersistence.cpp" />
+		<Unit filename="src/view/IncomeTable.cpp" />
+		<Unit filename="src/view/IncomeView.cpp" />
+		<Unit filename="src/view/OrderView.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

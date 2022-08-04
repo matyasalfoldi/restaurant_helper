@@ -32,3 +32,6 @@
 *.app
 
 *.db
+
+# Code Blocks depend file
+*.depend
