@@ -27,8 +27,11 @@ namespace View
             date_to_filter = new Fl_Input(100, 200, 100, 30, "Filter for date:");
 
             income_table = new IncomeTable(
-                std::make_unique<Model::IncomeTableModel>(
-                     controller->get_persistence()),
+                std::make_unique<Controller::IncomeTableController>(
+                    std::make_unique<Model::IncomeTableModel>(
+                        controller->get_persistence()
+                    )
+                ),
                 x, y+200, w, h+100, "Income"
             );
 

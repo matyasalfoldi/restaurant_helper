@@ -7,6 +7,12 @@ namespace Model
         persistence = std::move(p);
         incomes = persistence->get();
         headers = persistence->get_column_headers();
+        notify();
+    }
+
+    void IncomeTableModel::connect(Update_Func_IncomeTable update_func)
+    {
+        listeners.push_back(update_func);
     }
 
     std::size_t IncomeTableModel::get_column_count() const
@@ -36,9 +42,19 @@ namespace Model
         return incomes.size();
     }
 
+    void IncomeTableModel::notify()
+    {
+        int i = 0;
+        for(auto& listener : listeners)
+        {
+            listener(*this);
+        }
+    }
+
     void IncomeTableModel::reload_data(bool show_all, std::string date)
     {
         incomes = persistence->get(!show_all, date);
+        notify();
     }
 
     IncomeTableModel::~IncomeTableModel()

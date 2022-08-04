@@ -2,23 +2,28 @@
 
 namespace View
 {
-    IncomeTable::IncomeTable(std::unique_ptr<Model::IncomeTableModel>&& m, int X, int Y, int W, int H, const char *L)
+    IncomeTable::IncomeTable(std::unique_ptr<Controller::IncomeTableController>&& c, int X, int Y, int W, int H, const char *L)
         :Fl_Table(X,Y,W,H,L)
     {
-        model = std::move(m);
+        controller = std::move(c);
         initialize();
+        controller->connect([&](Model::IncomeTableModel& mo)
+        {
+            update(mo);
+        });
+        controller->update();
     }
 
     void IncomeTable::initialize()
     {
         begin();
-        auto num_of_rows = model->get_number_of_rows();
+        auto num_of_rows = controller->get_number_of_rows();
         rows(num_of_rows);
         row_header(1);
         row_height_all(20);
         row_resize(0);
 
-        cols(model->get_column_count());
+        cols(controller->get_column_count());
         col_header(1);
         col_width_all(100);
         col_resize(1);
@@ -59,13 +64,13 @@ namespace View
             fl_font(FL_HELVETICA, 16);
             return;
           case CONTEXT_COL_HEADER:
-            DrawHeader(model->get_column_header(col).c_str(), x, y, w, h);
+            DrawHeader(controller->get_column_header(col).c_str(), x, y, w, h);
             return;
           case CONTEXT_ROW_HEADER:
             DrawHeader(std::to_string(row).c_str(), x, y, w, h);
             return;
           case CONTEXT_CELL:
-            DrawData(model->get_data(row, col).c_str(), x, y, w, h);
+            DrawData(controller->get_data(row, col).c_str(), x, y, w, h);
             return;
           default:
             return;
@@ -74,9 +79,18 @@ namespace View
 
     void IncomeTable::draw_everything(bool show_all, std::string date)
     {
-        model->reload_data(show_all, date);
+        controller->reload_data(show_all, date);
         clear();
         initialize();
+    }
+
+    void IncomeTable::update(Model::IncomeTableModel& model)
+    {
+        clear();
+        if(!initialized)
+        {
+            initialize();
+        }
     }
 
     IncomeTable::~IncomeTable()

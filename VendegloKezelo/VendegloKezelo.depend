@@ -622,12 +622,13 @@
 	"model/IncomeModel.h"
 	"view/IncomeTable.h"
 
-1659556888 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incometable.h
+1659631635 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\incometable.h
 	<memory>
 	<vector>
 	<FL/Fl.H>
 	<FL/fl_draw.H>
 	<FL/Fl_Table.H>
+	"controller/IncomeTableController.h"
 	"model/IncomeTableModel.h"
 
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_table.h
@@ -648,7 +649,7 @@
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_box.h
 	"Fl_Widget.H"
 
-1659557982 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incometablemodel.h
+1659630745 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\incometablemodel.h
 	<memory>
 	<string>
 	<vector>
@@ -668,7 +669,7 @@
 	<set>
 	"model/IncomeModel.h"
 
-1659558034 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incometablemodel.cpp
+1659630902 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incometablemodel.cpp
 	"model/IncomeTableModel.h"
 
 1659623164 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\ordermodel.cpp
@@ -689,10 +690,10 @@
 	<fstream>
 	"persistence/TxtPersistence.h"
 
-1659556208 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incometable.cpp
+1659632073 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incometable.cpp
 	"view/IncomeTable.h"
 
-1659627393 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incomeview.cpp
+1659632131 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\view\incomeview.cpp
 	<numeric>
 	"view/IncomeView.h"
 	"model/IncomeTableModel.h"
@@ -722,7 +723,7 @@
 	<string>
 	<vector>
 
-1659627287 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\controller\incomecontroller.cpp
+1659629567 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\controller\incomecontroller.cpp
 	<numeric>
 	"controller/CallbackStore.h"
 	"controller/IncomeController.h"
@@ -747,4 +748,14 @@
 	"model/OrderModel.h"
 
 1659603174 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\controller\callbackstore.h
+
+1659631803 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\controller\incometablecontroller.h
+	<memory>
+	<string>
+	<FL/Fl.H>
+	<FL/Fl_Widget.H>
+	"model/IncomeTableModel.h"
+
+1659631849 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\controller\incometablecontroller.cpp
+	"IncomeTableController.h"
 
