@@ -39,7 +39,7 @@ namespace Model
         prepared_order.clear();
     }
 
-    Order OrderModel::get_order(const std::string& order) const
+    Order OrderModel::get_chosen_order(const std::string& order) const
     {
         Order not_found;
         for(const auto& o : all_possible_orders)
@@ -50,6 +50,17 @@ namespace Model
             }
         }
         return not_found;
+    }
+
+    std::string OrderModel::get_order_string(const Order& order) const
+    {
+        return "Table: " + std::to_string(order.table) + ", " +
+               std::to_string(order.amount) + ". " + order.name;
+    }
+
+    std::vector<Order> OrderModel::get_prepared_order() const
+    {
+        return prepared_order;
     }
 
     Order OrderModel::remove_order(int index)

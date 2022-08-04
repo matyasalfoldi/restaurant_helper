@@ -18,12 +18,16 @@ namespace Model
             void add_order(Order order);
             std::vector<std::string> fetch_all_possible_orders();
             void finalize_order();
-            Order get_order(const std::string& order) const;
+            Order get_chosen_order(const std::string& order) const;
+            std::string get_order_string(const Order& order) const;
+            std::vector<Order> get_prepared_order() const;
             // TODO: Get from persistence
             std::size_t get_table_count() const{return 3;};
             Order remove_order(int index);
             int tmp_order_count() const;
             int tmp_order_sum() const;
+
+
 
             ~OrderModel();
 

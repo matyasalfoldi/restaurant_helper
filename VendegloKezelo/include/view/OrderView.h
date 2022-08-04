@@ -44,10 +44,8 @@ namespace View
             Fl_Text_Display* sum;
             Fl_Button* finnish_order;
 
-            void add_to_prepared_order(Model::Order order, const std::string& table);
-            Model::Order get_chosen_order(const std::string& choice) const;
-            void remove_from_prepared_order(std::size_t index);
             void set_to_zero();
+            void update_prepared_order();
             void update_prepared_order_sum();
             void update_prepared_order_count();
 

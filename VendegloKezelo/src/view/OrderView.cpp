@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <numeric>
 #include <sstream>
 
@@ -56,55 +57,28 @@ namespace View
         group->end();
     }
 
-    void OrderView::add_to_prepared_order(Model::Order order, const std::string& table)
+    void OrderView::update_prepared_order()
     {
-        std::string old_order = prepared_order->value();
+        auto curr_order = model->get_prepared_order();
         std::string new_order = "";
-        if(!old_order.empty())
-        {
-            new_order = old_order + "\n";
-        }
-        new_order = new_order+"Table: "+table+", "+
-                    std::to_string(order.amount)+". "+order.name;
-        prepared_order->value(new_order.c_str());
-    }
-
-    Model::Order OrderView::get_chosen_order(const std::string& choice) const
-    {
-        return model->get_order(choice);
-    }
-
-    void OrderView::remove_from_prepared_order(std::size_t index)
-    {
-        auto compose_new_order =
-            [](std::string& new_order, const std::string& order_part)
+        std::for_each(
+            curr_order.begin(),
+            curr_order.end(),
+            [&new_order,this](const Model::Order& order)
             {
-                if(new_order.empty())
+                auto formatted_order = model->get_order_string(order);
+                if(!new_order.empty())
                 {
-                    new_order = order_part;
+                    new_order = new_order+"\n";
                 }
-                else
-                {
-                    new_order = new_order+"\n"+order_part;
-                }
-            };
-        std::stringstream ss{prepared_order->value()};
-        std::string new_order = "";
-        for(std::size_t i = 0; i < model->tmp_order_count(); ++i)
-        {
-            std::string order_part = "";
-            std::getline(ss, order_part, '\n');
-            if(i != index)
-            {
-                compose_new_order(new_order, order_part);
-            }
-        }
+                new_order += formatted_order;
+            });
         prepared_order->value(new_order.c_str());
     }
 
     void OrderView::set_to_zero()
     {
-        prepared_order->value("");
+        update_prepared_order();
         update_prepared_order_count();
         update_prepared_order_sum();
     }
@@ -159,12 +133,13 @@ namespace View
             Model::Order(
                 amount,
                 choice,
-                amount*order_view->get_chosen_order(choice).price
+                amount*order_view->model->get_chosen_order(choice).price,
+                std::stoi(table)
             );
         // Update Model
         order_view->model->add_order(current_order);
         // Update GUI
-        order_view->add_to_prepared_order(current_order, table);
+        order_view->update_prepared_order();
         order_view->update_prepared_order_count();
         order_view->update_prepared_order_sum();
     }
@@ -186,9 +161,10 @@ namespace View
             return;
         }
         int order_number = std::stoi(sorder_number);
-        order_view->remove_from_prepared_order(order_number);
+
         // returns the deleted order, if needed later on
         order_view->model->remove_order(order_number);
+        order_view->update_prepared_order();
         order_view->update_prepared_order_count();
         order_view->update_prepared_order_sum();
     }
