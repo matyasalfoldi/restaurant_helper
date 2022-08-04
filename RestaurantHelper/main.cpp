@@ -26,6 +26,8 @@ int main (int argc, char** argv)
     std::unique_ptr<Controller::OrderController> order_controller = std::make_unique<Controller::OrderController>(std::move(order_model));
     std::unique_ptr<Controller::IncomeController> income_controller = std::make_unique<Controller::IncomeController>(std::move(income_model));
 
+    // Based on the comments during destruction it deletes child pointers
+    // thus not manually deleting child elements is not a problem
     Fl_Window* window = new Fl_Window (Fl::w()-100, Fl::h()-100, "Restaurant Helper");
 
     Fl_Tabs* tabs = new Fl_Tabs(0, 0, Fl::w(), Fl::h());
