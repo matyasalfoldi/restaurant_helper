@@ -23,10 +23,22 @@ namespace Controller
             {
                 return model->get_persistence();
             }
+            int get_sum() const
+            {
+                return model->get_sum();
+            }
+            void set_date(std::string date)
+            {
+                model->set_date(date);
+            }
+            void set_show_all(bool show_all)
+            {
+                model->set_show_all(show_all);
+            }
+            void update();
             ~IncomeController();
 
             // Callbacks
-            static void calculate_sum_callback(Fl_Widget* w, void* callback_store);
             static void reload_table_callback(Fl_Widget* w, void* callback_store);
             static void show_all_callback(Fl_Widget* w, void* callback_store);
         protected:

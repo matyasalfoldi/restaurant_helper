@@ -7,9 +7,9 @@
 SqlitePersistence::SqlitePersistence()
 {
     sqlite3_open("income.db", &db);
-    /*sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS incomes(Amount INT, OrderDate TEXT);", nullptr, NULL, NULL);
+    sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS incomes(Amount INT, OrderDate TEXT);", nullptr, NULL, NULL);
     // Test data
-    sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1000, date());", nullptr, NULL, NULL);
+    /*sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1000, date());", nullptr, NULL, NULL);
     sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1300, date('now','-1 day'));", nullptr, NULL, NULL);
     sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1500, date());", nullptr, NULL, NULL);*/
 }

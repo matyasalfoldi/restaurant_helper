@@ -25,7 +25,6 @@ namespace View
         public:
             IncomeTable* income_table;
 
-            Fl_Button* calculate_sum;
             Fl_Button* reload_table;
             Fl_Check_Button* show_all;
             Fl_Text_Buffer* sum_buffer;
@@ -33,6 +32,7 @@ namespace View
             Fl_Input* date_to_filter;
 
             IncomeView(std::shared_ptr<Controller::IncomeController>&& c, int x, int y, int w, int h);
+            void update(Model::IncomeModel& model);
             ~IncomeView();
 
         protected:

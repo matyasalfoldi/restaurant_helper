@@ -5,6 +5,8 @@ namespace Model
     IncomeModel::IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>>&& p)
     {
         persistence = std::move(p);
+        show_all = false;
+        date = "";
     }
 
     void IncomeModel::connect(Update_Func_Income update_func)
