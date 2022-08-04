@@ -21,20 +21,17 @@ namespace Controller
 
     void OrderController::add_to_order_callback(Fl_Widget* w, void* c_s)
     {
-        CallbackStore* callback_store = (CallbackStore*)c_s;
+        CallbackStore* callback_store = static_cast<CallbackStore*>(c_s);
         View::OrderView* order_view = static_cast<View::OrderView*>(callback_store->view);
         OrderController* order_controller = static_cast<OrderController*>(callback_store->controller);
         std::string samount = order_view->amount->value();
         int amount = -1;
-        if(order_controller->model->is_valid_amount(samount))
-        {
-            amount = std::stoi(samount);
-        }
-        else
+        if(!order_controller->model->is_valid_amount(samount))
         {
             fl_message("Incorrect amount given!");
             return;
         }
+        amount = std::stoi(samount);
         std::string choice = order_view->choices->value();
         if(!order_controller->model->is_valid_choice(choice))
         {
@@ -60,7 +57,7 @@ namespace Controller
 
     void OrderController::finnish_order_callback(Fl_Widget* w, void* c_s)
     {
-        CallbackStore* callback_store = (CallbackStore*)c_s;
+        CallbackStore* callback_store = static_cast<CallbackStore*>(c_s);
         View::OrderView* order_view = static_cast<View::OrderView*>(callback_store->view);
         OrderController* order_controller = static_cast<OrderController*>(callback_store->controller);
         order_controller->model->finalize_order();
@@ -68,7 +65,7 @@ namespace Controller
 
     void OrderController::remove_from_order_callback(Fl_Widget* w, void* c_s)
     {
-        CallbackStore* callback_store = (CallbackStore*)c_s;
+        CallbackStore* callback_store = static_cast<CallbackStore*>(c_s);
         View::OrderView* order_view = static_cast<View::OrderView*>(callback_store->view);
         OrderController* order_controller = static_cast<OrderController*>(callback_store->controller);
         std::string sorder_number = order_view->row_to_delete->value();

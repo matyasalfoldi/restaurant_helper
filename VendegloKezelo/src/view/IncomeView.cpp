@@ -1,8 +1,6 @@
 #include <numeric>
 
 #include "view/IncomeView.h"
-#include "model/IncomeTableModel.h"
-#include "model/IncomeRow.h"
 
 namespace View
 {

@@ -15,7 +15,6 @@
 
 #include "controller/CallbackStore.h"
 #include "controller/IncomeController.h"
-#include "model/IncomeModel.h"
 #include "view/IncomeTable.h"
 
 namespace View

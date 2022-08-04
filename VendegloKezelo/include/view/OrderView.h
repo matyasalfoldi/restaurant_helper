@@ -15,8 +15,6 @@
 #include <FL/Fl_Text_Buffer.H>
 #include <FL/Fl_Text_Display.H>
 
-
-#include "model/Order.h"
 #include "controller/CallbackStore.h"
 #include "controller/OrderController.h"
 

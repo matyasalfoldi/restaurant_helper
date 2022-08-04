@@ -81,8 +81,9 @@ namespace Model
 
     Order OrderModel::remove_order(int index)
     {
-        return *prepared_order.erase(prepared_order.begin() + index);
+        auto deleted_element = *prepared_order.erase(prepared_order.begin() + index);
         notify();
+        return deleted_element;
     }
 
     int OrderModel::tmp_order_count() const

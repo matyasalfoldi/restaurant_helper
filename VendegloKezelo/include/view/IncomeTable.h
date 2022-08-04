@@ -9,7 +9,6 @@
 #include <FL/Fl_Table.H>
 
 #include "controller/IncomeTableController.h"
-#include "model/IncomeTableModel.h"
 
 namespace View
 {
