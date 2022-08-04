@@ -36,20 +36,20 @@ namespace View
             Fl_Text_Display* sum;
             Fl_Button* finnish_order;
 
-            OrderView(std::unique_ptr<Controller::OrderController>&& c, int x, int y, int w, int h);
-            void update(Model::OrderModel* model);
+            OrderView(std::shared_ptr<Controller::OrderController>&& c, int x, int y, int w, int h);
+            void update(Model::OrderModel& model);
             ~OrderView();
 
         protected:
 
         private:
-            std::unique_ptr<Controller::OrderController> controller;
+            std::shared_ptr<Controller::OrderController> controller;
             Controller::CallbackStore* callback_store;
             bool initialized = false;
 
-            void update_prepared_order(Model::OrderModel* model);
-            void update_prepared_order_sum(Model::OrderModel* model);
-            void update_prepared_order_count(Model::OrderModel* model);
+            void update_prepared_order(Model::OrderModel& model);
+            void update_prepared_order_sum(Model::OrderModel& model);
+            void update_prepared_order_count(Model::OrderModel& model);
     };
 }
 

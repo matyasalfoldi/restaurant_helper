@@ -72,9 +72,10 @@ namespace Model
 
     void OrderModel::notify()
     {
+        int i = 0;
         for(auto& listener : listeners)
         {
-            listener(this);
+            listener(*this);
         }
     }
 

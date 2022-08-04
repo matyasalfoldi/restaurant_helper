@@ -6,11 +6,14 @@ namespace Controller
 {
     OrderController::OrderController(std::unique_ptr<Model::OrderModel>&& m)
     {
-        model == std::move(m);
+        model = std::move(m);
+        int x = 1;
     }
 
     void OrderController::update()
     {
+        int x = 1;
+        int y = 2;
         model->notify();
     }
 

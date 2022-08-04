@@ -13,7 +13,7 @@
 namespace Model
 {
     class OrderModel;
-    using Update_Func = std::function<void(OrderModel*)>;
+    using Update_Func = std::function<void(OrderModel&)>;
 
     class OrderModel
     {

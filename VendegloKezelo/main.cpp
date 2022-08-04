@@ -32,6 +32,7 @@ int main (int argc, char** argv)
         View::OrderView* order_view =
             new View::OrderView(std::move(order_controller),
                 0, 100, Fl::w()-100, Fl::h()-200);
+
         View::IncomeView* income_view =
             new View::IncomeView(std::move(income_model),
                 0, 100, Fl::w()-100, Fl::h()-200);

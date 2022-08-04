@@ -9,7 +9,7 @@
 
 namespace View
 {
-    OrderView::OrderView(std::unique_ptr<Controller::OrderController>&& c, int x, int y, int w, int h)
+    OrderView::OrderView(std::shared_ptr<Controller::OrderController>&& c, int x, int y, int w, int h)
     {
         controller = std::move(c);
 
@@ -22,6 +22,7 @@ namespace View
             tables = new Fl_Input_Choice(75, 250, 200, 30, "Tables:");
 
             callback_store = new Controller::CallbackStore(this, controller.get());
+            auto t = controller->test();
             add_to_order = new Fl_Button(250, 125, 100, 40, "Add to order");
             add_to_order->callback(controller->add_to_order_callback, callback_store);
 
@@ -40,23 +41,27 @@ namespace View
             finnish_order = new Fl_Button(575, 500, 150, 40, "Finnish order");
             finnish_order->callback(controller->finnish_order_callback, callback_store);
 
+            controller->connect([&](Model::OrderModel& mo)
+                                {
+                                    update(mo);
+                                });
             controller->update();
         }
         group->end();
     }
 
-    void OrderView::update(Model::OrderModel* model)
+    void OrderView::update(Model::OrderModel& model)
     {
         if(!initialized)
         {
-            std::size_t table_count = model->get_table_count();
+            std::size_t table_count = model.get_table_count();
             for(std::size_t i = 1; i <= table_count; ++i)
             {
                 tables->add(std::to_string(i).c_str());
             }
             tables->value(0);
 
-            std::vector<std::string> all_possible_orders = model->fetch_all_possible_orders();
+            std::vector<std::string> all_possible_orders = model.fetch_all_possible_orders();
             for(auto& order : all_possible_orders)
             {
                 choices->add(order.c_str());
@@ -72,16 +77,16 @@ namespace View
         update_prepared_order_sum(model);
     }
 
-    void OrderView::update_prepared_order(Model::OrderModel* model)
+    void OrderView::update_prepared_order(Model::OrderModel& model)
     {
-        auto curr_order = model->get_prepared_order();
+        auto curr_order = model.get_prepared_order();
         std::string new_order = "";
         std::for_each(
             curr_order.begin(),
             curr_order.end(),
-            [&new_order,model](const Model::Order& order)
+            [&new_order,&model](const Model::Order& order)
             {
-                auto formatted_order = model->get_order_string(order);
+                auto formatted_order = model.get_order_string(order);
                 if(!new_order.empty())
                 {
                     new_order = new_order+"\n";
@@ -91,10 +96,10 @@ namespace View
         prepared_order->value(new_order.c_str());
     }
 
-    void OrderView::update_prepared_order_count(Model::OrderModel* model)
+    void OrderView::update_prepared_order_count(Model::OrderModel& model)
     {
         row_to_delete->clear();
-        int number_of_orders = model->tmp_order_count();
+        int number_of_orders = model.tmp_order_count();
         for(std::size_t i = 0; i < number_of_orders; ++i)
         {
             row_to_delete->add(std::to_string(i).c_str());
@@ -105,9 +110,9 @@ namespace View
         }
     }
 
-    void OrderView::update_prepared_order_sum(Model::OrderModel* model)
+    void OrderView::update_prepared_order_sum(Model::OrderModel& model)
     {
-        sum_buffer->text(std::to_string(model->tmp_order_sum()).c_str());
+        sum_buffer->text(std::to_string(model.tmp_order_sum()).c_str());
     }
 
     OrderView::~OrderView()
