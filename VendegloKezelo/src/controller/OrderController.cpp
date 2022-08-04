@@ -9,6 +9,11 @@ namespace Controller
         model = std::move(m);
     }
 
+    void OrderController::connect(Model::Update_Func_Order update_func)
+    {
+        model->connect(update_func);
+    }
+
     void OrderController::update()
     {
         model->notify();

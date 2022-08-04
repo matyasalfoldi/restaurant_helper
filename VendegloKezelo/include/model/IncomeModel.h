@@ -3,8 +3,6 @@
 
 #include <functional>
 #include <memory>
-#include <numeric>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -22,49 +20,16 @@ namespace Model
             IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>>&& p);
             void connect(Update_Func_Income update_func);
             std::vector<Model::IncomeRow> fetch_all_income(bool show_all, std::string date);
+            std::string get_date();
             std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> get_persistence();
-            std::string get_date()
-            {
-                return date;
-            }
-            int get_sum()
-            {
-                incomes = fetch_all_income(show_all, date);
-                return std::accumulate(
-                    incomes.begin(),
-                    incomes.end(),
-                    0,
-                    [](int accumulated_income, Model::IncomeRow next_income)
-                    {
-                        return accumulated_income + next_income.income;
-                    }
-                );
-            }
-            bool is_show_all_on()
-            {
-                return show_all;
-            }
+            int get_sum();
+            bool is_show_all_on();
             bool is_valid_date(std::string date) const;
-            void set_date(std::string d)
-            {
-                date = d;
-                if(!date.empty())
-                {
-                    show_all = false;
-                }
-                notify();
-            }
-            void set_show_all(bool s)
-            {
-                show_all = s;
-                if(show_all)
-                {
-                    date = "";
-                }
-                notify();
-            }
             void notify();
+            void set_date(std::string d);
+            void set_show_all(bool s);
             ~IncomeModel();
+
         protected:
 
         private:

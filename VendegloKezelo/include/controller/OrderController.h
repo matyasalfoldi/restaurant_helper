@@ -14,12 +14,9 @@ namespace Controller
     {
         public:
             OrderController(std::unique_ptr<Model::OrderModel>&& m);
+            void connect(Model::Update_Func_Order update_func);
             void update();
             ~OrderController();
-            void connect(Model::Update_Func_Order update_func)
-            {
-                model->connect(update_func);
-            }
 
             // Callbacks
             static void add_to_order_callback(Fl_Widget* w, void* callback_store);
