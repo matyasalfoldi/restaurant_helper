@@ -17,22 +17,14 @@
 
 
 #include "model/Order.h"
-#include "model/OrderModel.h"
+#include "controller/CallbackStore.h"
+#include "controller/OrderController.h"
 
 namespace View
 {
     class OrderView
     {
         public:
-            OrderView(std::unique_ptr<Model::OrderModel>&& m, int x, int y, int w, int h);
-            ~OrderView();
-
-        protected:
-
-        private:
-            std::vector<std::string> all_possible_orders;
-            std::unique_ptr<Model::OrderModel> model;
-
             Fl_Int_Input* amount;
             Fl_Input_Choice* choices;
             Fl_Input_Choice* tables;
@@ -44,15 +36,20 @@ namespace View
             Fl_Text_Display* sum;
             Fl_Button* finnish_order;
 
-            void set_to_zero();
-            void update_prepared_order();
-            void update_prepared_order_sum();
-            void update_prepared_order_count();
+            OrderView(std::unique_ptr<Controller::OrderController>&& c, int x, int y, int w, int h);
+            void update(Model::OrderModel* model);
+            ~OrderView();
 
-            // Callbacks
-            static void add_to_order_callback(Fl_Widget *w, void *view);
-            static void finnish_order_callback(Fl_Widget *w, void *view);
-            static void remove_from_order_callback(Fl_Widget *w, void *view);
+        protected:
+
+        private:
+            std::unique_ptr<Controller::OrderController> controller;
+            Controller::CallbackStore* callback_store;
+            bool initialized = false;
+
+            void update_prepared_order(Model::OrderModel* model);
+            void update_prepared_order_sum(Model::OrderModel* model);
+            void update_prepared_order_count(Model::OrderModel* model);
     };
 }
 

@@ -60,6 +60,9 @@
 		</Linker>
 		<Unit filename="include/3rdparty/sqlite3.h" />
 		<Unit filename="include/3rdparty/sqlite3ext.h" />
+		<Unit filename="include/controller/CallbackStore.h" />
+		<Unit filename="include/controller/IncomeController.h" />
+		<Unit filename="include/controller/OrderController.h" />
 		<Unit filename="include/model/IncomeModel.h" />
 		<Unit filename="include/model/IncomeRow.h" />
 		<Unit filename="include/model/IncomeTableModel.h" />
@@ -72,6 +75,8 @@
 		<Unit filename="include/view/IncomeView.h" />
 		<Unit filename="include/view/OrderView.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/controller/IncomeController.cpp" />
+		<Unit filename="src/controller/OrderController.cpp" />
 		<Unit filename="src/model/IncomeModel.cpp" />
 		<Unit filename="src/model/IncomeTableModel.cpp" />
 		<Unit filename="src/model/OrderModel.cpp" />

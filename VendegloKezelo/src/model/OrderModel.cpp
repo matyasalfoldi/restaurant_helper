@@ -16,6 +16,12 @@ namespace Model
     void OrderModel::add_order(Order order)
     {
         prepared_order.push_back(order);
+        notify();
+    }
+
+    void OrderModel::connect(Update_Func update_func)
+    {
+        listeners.push_back(update_func);
     }
 
     std::vector<std::string> OrderModel::fetch_all_possible_orders()
@@ -37,6 +43,7 @@ namespace Model
         // TODO: print out order to printer
         db->write(tmp_order_sum());
         prepared_order.clear();
+        notify();
     }
 
     Order OrderModel::get_chosen_order(const std::string& order) const
@@ -63,9 +70,18 @@ namespace Model
         return prepared_order;
     }
 
+    void OrderModel::notify()
+    {
+        for(auto& listener : listeners)
+        {
+            listener(this);
+        }
+    }
+
     Order OrderModel::remove_order(int index)
     {
         return *prepared_order.erase(prepared_order.begin() + index);
+        notify();
     }
 
     int OrderModel::tmp_order_count() const

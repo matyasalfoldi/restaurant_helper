@@ -6,6 +6,7 @@
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Window.H>
 
+#include "controller/OrderController.h"
 #include "model/IncomeModel.h"
 #include "model/OrderModel.h"
 #include "persistence/SqlitePersistence.h"
@@ -19,6 +20,9 @@ int main (int argc, char** argv)
     std::unique_ptr<Model::IncomeModel> income_model = std::make_unique<Model::IncomeModel>(db_conn);
     std::unique_ptr<Model::OrderModel> order_model =
         std::make_unique<Model::OrderModel>(std::make_unique<TxtPersistence>(), db_conn);
+
+    std::unique_ptr<Controller::OrderController> order_controller = std::make_unique<Controller::OrderController>(std::move(order_model));
+
     Fl_Window *window;
 
     window = new Fl_Window (Fl::w()-100, Fl::h()-100, "Restaurant Helper");
@@ -26,7 +30,7 @@ int main (int argc, char** argv)
     Fl_Tabs* tabs = new Fl_Tabs(0, 0, Fl::w(), Fl::h());
     {
         View::OrderView* order_view =
-            new View::OrderView(std::move(order_model),
+            new View::OrderView(std::move(order_controller),
                 0, 100, Fl::w()-100, Fl::h()-200);
         View::IncomeView* income_view =
             new View::IncomeView(std::move(income_model),

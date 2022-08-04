@@ -344,13 +344,14 @@
 1637435434 d:\cb\fltk\fltk-1.3.8\fl\fl_tabs.h
 	"Fl_Group.H"
 
-1659556934 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\main.cpp
+1659601962 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\main.cpp
 	<memory>
 	<string>
 	<vector>
 	<FL/Fl.H>
 	<FL/Fl_Tabs.H>
 	<FL/Fl_Window.H>
+	"controller/OrderController.h"
 	"model/IncomeModel.h"
 	"model/OrderModel.h"
 	"persistence/SqlitePersistence.h"
@@ -445,7 +446,7 @@
 1659594869 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\order.h
 	<string>
 
-1659596702 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\orderview.h
+1659603682 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\view\orderview.h
 	<memory>
 	<string>
 	<vector>
@@ -459,7 +460,8 @@
 	<FL/Fl_Text_Buffer.H>
 	<FL/Fl_Text_Display.H>
 	"model/Order.h"
-	"model/OrderModel.h"
+	"controller/CallbackStore.h"
+	"controller/OrderController.h"
 
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_ask.h
 	"Enumerations.H"
@@ -593,7 +595,9 @@
 1637435434 c:\cb\fltk\fltk-1.3.8\fl\fl_valuator.h
 	"Fl_Widget.H"
 
-1659596685 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\ordermodel.h
+1659601395 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\model\ordermodel.h
+	<functional>
+	<list>
 	<memory>
 	<vector>
 	"model/IncomeRow.h"
@@ -661,7 +665,7 @@
 1659558034 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\incometablemodel.cpp
 	"model/IncomeTableModel.h"
 
-1659596692 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\ordermodel.cpp
+1659601318 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\model\ordermodel.cpp
 	"model/OrderModel.h"
 	<algorithm>
 	<numeric>
@@ -711,4 +715,22 @@
 1659557660 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\persistence\datastore.h
 	<string>
 	<vector>
+
+1659597629 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\controller\incomecontroller.cpp
+	"IncomeController.h"
+
+1659597629 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\controller\incomecontroller.h
+
+1659603458 source:c:\cb\pgm-cb\vendeglo\vendeglokezelo\src\controller\ordercontroller.cpp
+	"controller/CallbackStore.h"
+	"controller/OrderController.h"
+	"view/OrderView.h"
+
+1659603437 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\controller\ordercontroller.h
+	<memory>
+	<FL/Fl.H>
+	<FL/Fl_Widget.H>
+	"model/OrderModel.h"
+
+1659603174 c:\cb\pgm-cb\vendeglo\vendeglokezelo\include\controller\callbackstore.h
 
