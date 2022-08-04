@@ -13,7 +13,7 @@
 namespace Model
 {
     class OrderModel;
-    using Update_Func = std::function<void(OrderModel&)>;
+    using Update_Func_Order = std::function<void(OrderModel&)>;
 
     class OrderModel
     {
@@ -21,7 +21,7 @@ namespace Model
             OrderModel(std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>>&& p,
                        std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db_conn);
             void add_order(Order order);
-            void connect(Update_Func update_func);
+            void connect(Update_Func_Order update_func);
             std::vector<std::string> fetch_all_possible_orders();
             void finalize_order();
             Order get_chosen_order(const std::string& order) const;
@@ -44,7 +44,7 @@ namespace Model
         protected:
 
         private:
-            std::vector<Update_Func> listeners;
+            std::vector<Update_Func_Order> listeners;
             std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>> persistence;
             std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db;
             std::vector<Order> prepared_order;

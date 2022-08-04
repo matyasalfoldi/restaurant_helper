@@ -13,6 +13,8 @@
 #include <FL/Fl_Text_Buffer.H>
 #include <FL/Fl_Text_Display.H>
 
+#include "controller/CallbackStore.h"
+#include "controller/IncomeController.h"
 #include "model/IncomeModel.h"
 #include "view/IncomeTable.h"
 
@@ -21,13 +23,6 @@ namespace View
     class IncomeView
     {
         public:
-            IncomeView(std::unique_ptr<Model::IncomeModel>&& m, int x, int y, int w, int h);
-            ~IncomeView();
-
-        protected:
-
-        private:
-            std::unique_ptr<Model::IncomeModel> model;
             IncomeTable* income_table;
 
             Fl_Button* calculate_sum;
@@ -37,10 +32,15 @@ namespace View
             Fl_Text_Display* sum;
             Fl_Input* date_to_filter;
 
-            // Callbacks
-            static void calculate_sum_callback(Fl_Widget* w, void* view);
-            static void reload_table_callback(Fl_Widget* w, void* view);
-            static void show_all_callback(Fl_Widget* w, void* view);
+            IncomeView(std::shared_ptr<Controller::IncomeController>&& c, int x, int y, int w, int h);
+            ~IncomeView();
+
+        protected:
+
+        private:
+            Controller::CallbackStore* callback_store;
+            bool initialized = false;
+            std::shared_ptr<Controller::IncomeController> controller;
     };
 }
 

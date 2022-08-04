@@ -19,7 +19,7 @@ namespace Model
         notify();
     }
 
-    void OrderModel::connect(Update_Func update_func)
+    void OrderModel::connect(Update_Func_Order update_func)
     {
         listeners.push_back(update_func);
     }

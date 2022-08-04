@@ -7,6 +7,11 @@ namespace Model
         persistence = std::move(p);
     }
 
+    void IncomeModel::connect(Update_Func_Income update_func)
+    {
+        listeners.push_back(update_func);
+    }
+
     std::vector<Model::IncomeRow> IncomeModel::fetch_all_income(bool show_all, std::string date)
     {
         incomes = persistence->get(!show_all, date);
@@ -41,6 +46,15 @@ namespace Model
             }
         }
         return true;
+    }
+
+    void IncomeModel::notify()
+    {
+        int i = 0;
+        for(auto& listener : listeners)
+        {
+            listener(*this);
+        }
     }
 
     IncomeModel::~IncomeModel()

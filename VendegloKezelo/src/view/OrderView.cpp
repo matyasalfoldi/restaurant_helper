@@ -22,7 +22,6 @@ namespace View
             tables = new Fl_Input_Choice(75, 250, 200, 30, "Tables:");
 
             callback_store = new Controller::CallbackStore(this, controller.get());
-            auto t = controller->test();
             add_to_order = new Fl_Button(250, 125, 100, 40, "Add to order");
             add_to_order->callback(controller->add_to_order_callback, callback_store);
 
