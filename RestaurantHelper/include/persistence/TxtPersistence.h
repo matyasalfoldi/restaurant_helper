@@ -7,11 +7,11 @@
 #include "model/Order.h"
 #include "persistence/DataStore.h"
 
-class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<Model::Order>>
+class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<Model::Order>, Model::Order>
 {
     public:
         TxtPersistence();
-        virtual std::vector<Model::Order> get(bool today_only=true, std::string date="") override;
+        virtual std::vector<Model::Order> get(const Criteria<Model::Order>& criteria) override;
         virtual std::vector<std::string> get_column_headers() const override;
         virtual void write(std::vector<Model::Order>, bool new_data=true) override;
         virtual ~TxtPersistence();

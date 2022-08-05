@@ -4,12 +4,14 @@
 #include <string>
 #include <vector>
 
-template <typename T, typename U>
+#include "persistence/Criteria.h"
+
+template <typename T, typename U, typename V>
 class DataStore
 {
     public:
         DataStore() = default;
-        virtual T get(bool today_only=true, std::string date="") = 0;
+        virtual T get(const Criteria<V>& criteria) = 0;
         virtual std::vector<std::string> get_column_headers() const = 0;
         virtual void write(U, bool new_data=true) = 0;
         virtual ~DataStore() = default;

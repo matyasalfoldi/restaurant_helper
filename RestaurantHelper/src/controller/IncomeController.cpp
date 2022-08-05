@@ -16,7 +16,7 @@ namespace Controller
         model->connect(update_func);
     }
 
-    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> IncomeController::get_persistence()
+    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> IncomeController::get_persistence()
     {
         return model->get_persistence();
     }

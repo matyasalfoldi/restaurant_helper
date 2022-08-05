@@ -9,7 +9,7 @@ TxtPersistence::TxtPersistence()
 
 }
 
-std::vector<Model::Order> TxtPersistence::get(bool today_only, std::string date)
+std::vector<Model::Order> TxtPersistence::get(const Criteria<Model::Order>& criteria)
 {
     auto is_number = [](const std::string& value)
     {

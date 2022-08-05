@@ -18,8 +18,8 @@ namespace Model
     class OrderModel
     {
         public:
-            OrderModel(std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>>&& p,
-                       std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db_conn);
+            OrderModel(std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>, Order>>&& p,
+                       std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> db_conn);
             void add_order(Order order);
             void connect(Update_Func_Order update_func);
             std::vector<std::string> fetch_all_possible_orders();
@@ -45,8 +45,8 @@ namespace Model
 
         private:
             std::vector<Update_Func_Order> listeners;
-            std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>> persistence;
-            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> db;
+            std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>, Order>> persistence;
+            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> db;
             std::vector<Order> prepared_order;
             std::vector<Model::Order> all_possible_orders;
     };

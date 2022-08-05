@@ -1,11 +1,15 @@
+#include <algorithm>
+#include <ctime>
 #include <numeric>
 #include <set>
+#include <sstream>
 
 #include "model/IncomeModel.h"
+#include "persistence/Criteria.h"
 
 namespace Model
 {
-    IncomeModel::IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>>&& p)
+    IncomeModel::IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>>&& p)
     {
         persistence = std::move(p);
         show_all = false;
@@ -19,7 +23,79 @@ namespace Model
 
     std::vector<Model::IncomeRow> IncomeModel::fetch_all_income(bool show_all, std::string date)
     {
-        incomes = persistence->get(!show_all, date);
+        IncomeCriteria income_criteria;
+        if(show_all)
+        {
+            income_criteria.predicate =
+                [](const IncomeRow& income_row)
+                {
+                    return true;
+                };
+        }
+        else
+        {
+            if(date.empty())
+            {
+                std::time_t time = std::time(nullptr);
+                std::tm* const time_info = std::localtime(&time);
+                date = std::to_string(1900+time_info->tm_year) + "-" +
+                       std::to_string(1+time_info->tm_mon) + "-" +
+                       std::to_string(time_info->tm_mday);
+                delete time_info;
+            }
+            income_criteria.predicate =
+                [&](const IncomeRow& income_row)
+                {
+                    std::stringstream input_date(date);
+                    std::string input_val;
+                    std::stringstream pred_date(income_row.date);
+                    std::string pred_val;
+                    auto remove_leading_zeros =
+                        [](std::string& input_val)
+                        {
+                            input_val.erase(
+                                input_val.begin(),
+                                std::find_if(
+                                    input_val.begin(),
+                                    input_val.end(),
+                                    [](unsigned char ch)
+                                    {
+                                        return ch != '0';
+                                    }
+                                )
+                            );
+                        };
+                    auto get_date_part =
+                        [&]()
+                        {
+                            std::getline(input_date, input_val, '-');
+                            // Remove leading 0-s
+                            remove_leading_zeros(input_val);
+                            std::getline(pred_date, pred_val, '-');
+                            remove_leading_zeros(pred_val);
+                        };
+                    //Compare year
+                    get_date_part();
+                    if(input_val != pred_val)
+                    {
+                        return false;
+                    }
+                    //Compare month
+                    get_date_part();
+                    if(input_val != pred_val)
+                    {
+                        return false;
+                    }
+                    //Compare day
+                    get_date_part();
+                    if(input_val != pred_val)
+                    {
+                        return false;
+                    }
+                    return true;
+                };
+        }
+        incomes = persistence->get(income_criteria);
         return incomes;
     }
 
@@ -30,7 +106,7 @@ namespace Model
 
     int IncomeModel::get_sum()
     {
-        incomes = fetch_all_income(show_all, date);
+        fetch_all_income(show_all, date);
         return std::accumulate(
             incomes.begin(),
             incomes.end(),
@@ -42,7 +118,7 @@ namespace Model
         );
     }
 
-    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> IncomeModel::get_persistence()
+    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> IncomeModel::get_persistence()
     {
         return persistence;
     }

@@ -14,21 +14,13 @@ SqlitePersistence::SqlitePersistence()
     sqlite3_exec(db, "INSERT INTO incomes(Amount, OrderDate) VALUES(1500, date());", nullptr, NULL, NULL);*/
 }
 
-std::vector<Model::IncomeRow> SqlitePersistence::get(bool today_only, std::string date)
+std::vector<Model::IncomeRow> SqlitePersistence::get(const Criteria<Model::IncomeRow>& criteria)
 {
     values.clear();
-    std::string stmt = "SELECT Amount, OrderDate FROM incomes";
-    if(!date.empty())
-    {
-        stmt += " WHERE OrderDate = date('"+date+"')";
-    }
-    else if(today_only)
-    {
-        stmt += " WHERE OrderDate = date()";
-    }
-
-    stmt += ";";
+    tmp_values.clear();
+    std::string stmt = "SELECT Amount, OrderDate FROM incomes;";
     sqlite3_exec(db, stmt.c_str(), sqlite_callback, this, NULL);
+    std::copy_if(tmp_values.cbegin(), tmp_values.cend(), std::back_inserter(values), criteria.predicate);
     return values;
 }
 
@@ -40,7 +32,7 @@ std::vector<std::string> SqlitePersistence::get_column_headers() const
 void SqlitePersistence::write(int value, bool new_data)
 {
     Model::IncomeRow order_row();
-    values.push_back(value);
+    tmp_values.push_back(value);
     if(new_data)
     {
         std::string command = "INSERT INTO incomes(Amount, OrderDate) VALUES("+std::to_string(value)+", date());";
@@ -50,7 +42,7 @@ void SqlitePersistence::write(int value, bool new_data)
 
 void SqlitePersistence::write(std::string date)
 {
-    values[values.size()-1].date = date;
+    tmp_values[tmp_values.size()-1].date = date;
 }
 
 void SqlitePersistence::write_headers(std::string header)

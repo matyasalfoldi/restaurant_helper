@@ -17,11 +17,11 @@ namespace Model
     class IncomeModel
     {
         public:
-            IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>>&& p);
+            IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>>&& p);
             void connect(Update_Func_Income update_func);
             std::vector<Model::IncomeRow> fetch_all_income(bool show_all, std::string date);
             std::string get_date();
-            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> get_persistence();
+            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> get_persistence();
             int get_sum();
             bool is_show_all_on();
             bool is_valid_date(std::string date) const;
@@ -37,7 +37,7 @@ namespace Model
             std::string date;
             std::vector<Update_Func_Income> listeners;
             std::vector<Model::IncomeRow> incomes;
-            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> persistence;
+            std::shared_ptr<DataStore<std::vector<IncomeRow>, int, IncomeRow>> persistence;
     };
 }
 

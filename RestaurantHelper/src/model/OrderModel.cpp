@@ -1,13 +1,14 @@
-#include "model/OrderModel.h"
-
 #include <algorithm>
 #include <numeric>
+
+#include "model/OrderModel.h"
+#include "persistence/Criteria.h"
 
 namespace Model
 {
     OrderModel::OrderModel(
-        std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>>>&& p,
-        std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int>> d)
+        std::unique_ptr<DataStore<std::vector<Order>, std::vector<Order>, Order>>&& p,
+        std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> d)
     {
         persistence = std::move(p);
         db = d;
@@ -26,7 +27,13 @@ namespace Model
 
     std::vector<std::string> OrderModel::fetch_all_possible_orders()
     {
-        all_possible_orders = persistence->get();
+        OrderCriteria order_criteria;
+        order_criteria.predicate =
+            [](const Order& order)
+            {
+                return true;
+            };
+        all_possible_orders = persistence->get(order_criteria);
         return std::accumulate(
             all_possible_orders.begin(),
             all_possible_orders.end(),
