@@ -1,8 +1,8 @@
 #include <algorithm>
-#include <ctime>
 #include <sstream>
 
 #include "model/IncomeTableModel.h"
+#include "model/utils.h"
 
 namespace Model
 {
@@ -10,64 +10,12 @@ namespace Model
     {
         persistence = std::move(p);
         IncomeCriteria income_criteria;
-        std::time_t time = std::time(nullptr);
-        std::tm* const time_info = std::localtime(&time);
-        std::string date = std::to_string(1900+time_info->tm_year) + "-" +
-                           std::to_string(1+time_info->tm_mon) + "-" +
-                           std::to_string(time_info->tm_mday);
-
+        std::string date = get_current_date();
         income_criteria.predicate =
-            [&](const IncomeRow& income_row)
+            [&date](const IncomeRow& income_row)
             {
-                std::stringstream input_date(date);
-                std::string input_val;
-                std::stringstream pred_date(income_row.date);
-                std::string pred_val;
-                auto remove_leading_zeros =
-                    [](std::string& input_val)
-                    {
-                        input_val.erase(
-                            input_val.begin(),
-                            std::find_if(
-                                input_val.begin(),
-                                input_val.end(),
-                                [](unsigned char ch)
-                                {
-                                    return ch != '0';
-                                }
-                            )
-                        );
-                    };
-                auto get_date_part =
-                    [&]()
-                    {
-                        std::getline(input_date, input_val, '-');
-                        // Remove leading 0-s
-                        remove_leading_zeros(input_val);
-                        std::getline(pred_date, pred_val, '-');
-                        remove_leading_zeros(pred_val);
-                    };
-                //Compare year
-                get_date_part();
-                if(input_val != pred_val)
-                {
-                    return false;
-                }
-                //Compare month
-                get_date_part();
-                if(input_val != pred_val)
-                {
-                    return false;
-                }
-                //Compare day
-                get_date_part();
-                if(input_val != pred_val)
-                {
-                    return false;
-                }
-                return true;
+                return date_comparer(date, income_row);
             };
-        delete time_info;
         incomes = persistence->get(income_criteria);
         headers = persistence->get_column_headers();
         notify();
@@ -129,63 +77,12 @@ namespace Model
         {
             if(date.empty())
             {
-                std::time_t time = std::time(nullptr);
-                std::tm* const time_info = std::localtime(&time);
-                date = std::to_string(1900+time_info->tm_year) + "-" +
-                       std::to_string(1+time_info->tm_mon) + "-" +
-                       std::to_string(time_info->tm_mday);
-                delete time_info;
+                date = get_current_date();
             }
             income_criteria.predicate =
-                [&](const IncomeRow& income_row)
+                [&date](const IncomeRow& income_row)
                 {
-                    std::stringstream input_date(date);
-                    std::string input_val;
-                    std::stringstream pred_date(income_row.date);
-                    std::string pred_val;
-                    auto remove_leading_zeros =
-                        [](std::string& input_val)
-                        {
-                            input_val.erase(
-                                input_val.begin(),
-                                std::find_if(
-                                    input_val.begin(),
-                                    input_val.end(),
-                                    [](unsigned char ch)
-                                    {
-                                        return ch != '0';
-                                    }
-                                )
-                            );
-                        };
-                    auto get_date_part =
-                        [&]()
-                        {
-                            std::getline(input_date, input_val, '-');
-                            // Remove leading 0-s
-                            remove_leading_zeros(input_val);
-                            std::getline(pred_date, pred_val, '-');
-                            remove_leading_zeros(pred_val);
-                        };
-                    //Compare year
-                    get_date_part();
-                    if(input_val != pred_val)
-                    {
-                        return false;
-                    }
-                    //Compare month
-                    get_date_part();
-                    if(input_val != pred_val)
-                    {
-                        return false;
-                    }
-                    //Compare day
-                    get_date_part();
-                    if(input_val != pred_val)
-                    {
-                        return false;
-                    }
-                    return true;
+                    return date_comparer(date, income_row);
                 };
         }
         incomes = persistence->get(income_criteria);
