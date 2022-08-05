@@ -1,7 +1,7 @@
 #ifndef SQLITEPERSISTENCE_H
 #define SQLITEPERSISTENCE_H
 
-#include <3rdparty/sqlite3.h>
+#include <sqlite3.h>
 
 #include "model/IncomeRow.h"
 #include "persistence/DataStore.h"
