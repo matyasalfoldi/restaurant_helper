@@ -26,7 +26,7 @@ namespace View
 
             // Since IncomeTable inherits from Fl_Table it will become
             // most likely a child widget to group, which causes it
-            // to be automatically deleted. (TODO: check if this is the case)
+            // to be automatically deleted.
             income_table = new IncomeTable(
                 std::make_unique<Controller::IncomeTableController>(
                     std::make_unique<Model::IncomeTableModel>(
