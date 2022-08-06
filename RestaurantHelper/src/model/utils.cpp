@@ -48,13 +48,13 @@ namespace Model
     std::string get_current_date()
     {
         std::time_t time = std::time(nullptr);
+        // Do not delete this! It points to an internal data structure!
         std::tm* const time_info = std::localtime(&time);
         // It gives back date since 1900 January, so we have to add
         // 1900 to the year and 1 to the month
         std::string date = std::to_string(1900+time_info->tm_year) + "-" +
                std::to_string(1+time_info->tm_mon) + "-" +
                std::to_string(time_info->tm_mday);
-        delete time_info;
         return date;
     }
 }
