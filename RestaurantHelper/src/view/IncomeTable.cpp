@@ -87,10 +87,7 @@ namespace View
     void IncomeTable::update(Model::IncomeTableModel& model)
     {
         clear();
-        if(!initialized)
-        {
-            initialize();
-        }
+        initialize();
     }
 
     IncomeTable::~IncomeTable()

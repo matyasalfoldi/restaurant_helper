@@ -27,7 +27,6 @@ namespace View
 
         private:
             std::unique_ptr<Controller::IncomeTableController> controller;
-            bool initialized = false;
 
             void initialize();
     };

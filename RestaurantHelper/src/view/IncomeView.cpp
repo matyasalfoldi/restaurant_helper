@@ -24,6 +24,9 @@ namespace View
 
             date_to_filter = new Fl_Input(100, 200, 100, 30, "Filter for date:");
 
+            // Since IncomeTable inherits from Fl_Table it will become
+            // most likely a child widget to group, which causes it
+            // to be automatically deleted. (TODO: check if this is the case)
             income_table = new IncomeTable(
                 std::make_unique<Controller::IncomeTableController>(
                     std::make_unique<Model::IncomeTableModel>(

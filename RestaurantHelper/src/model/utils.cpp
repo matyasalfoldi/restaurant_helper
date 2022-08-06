@@ -33,7 +33,7 @@ namespace Model
                     std::getline(pred_date, pred_val, '-');
                     remove_leading_zeros(pred_val);
                 };
-            //Compare year/month/day
+            // Compare year/month/day
             for(std::size_t i = 0; i < 3; ++i)
             {
                 get_date_part();
@@ -49,6 +49,8 @@ namespace Model
     {
         std::time_t time = std::time(nullptr);
         std::tm* const time_info = std::localtime(&time);
+        // It gives back date since 1900 January, so we have to add
+        // 1900 to the year and 1 to the month
         std::string date = std::to_string(1900+time_info->tm_year) + "-" +
                std::to_string(1+time_info->tm_mon) + "-" +
                std::to_string(time_info->tm_mday);
