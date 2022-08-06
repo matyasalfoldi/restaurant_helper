@@ -116,6 +116,7 @@ namespace View
 
     OrderView::~OrderView()
     {
-        //dtor
+        delete callback_store;
+        delete sum_buffer;
     }
 }

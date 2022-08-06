@@ -61,6 +61,7 @@ namespace View
 
     IncomeView::~IncomeView()
     {
-        //dtor
+        delete callback_store;
+        delete sum_buffer;
     }
 }
