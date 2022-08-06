@@ -62,6 +62,7 @@ namespace View
     IncomeView::~IncomeView()
     {
         delete callback_store;
+        sum->buffer(nullptr);
         delete sum_buffer;
     }
 }

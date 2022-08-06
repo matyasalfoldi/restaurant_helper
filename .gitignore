@@ -35,3 +35,5 @@
 
 # Code Blocks depend file
 *.depend
+
+RestaurantHelper/bin/*

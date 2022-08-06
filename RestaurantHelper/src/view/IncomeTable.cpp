@@ -11,7 +11,7 @@ namespace View
         {
             update(mo);
         });
-        controller->update();
+        //controller->update();
     }
 
     void IncomeTable::initialize()
@@ -23,7 +23,8 @@ namespace View
         row_height_all(20);
         row_resize(0);
 
-        cols(controller->get_column_count());
+        auto num_of_cols = controller->get_column_count();
+        cols(num_of_cols);
         col_header(1);
         col_width_all(100);
         col_resize(1);

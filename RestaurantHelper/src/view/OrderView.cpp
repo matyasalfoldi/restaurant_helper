@@ -70,6 +70,7 @@ namespace View
                 choices->value(0);
             }
             initialized = true;
+            return;
         }
         update_prepared_order(model);
         update_prepared_order_count(model);
@@ -117,6 +118,7 @@ namespace View
     OrderView::~OrderView()
     {
         delete callback_store;
+        sum->buffer(nullptr);
         delete sum_buffer;
     }
 }

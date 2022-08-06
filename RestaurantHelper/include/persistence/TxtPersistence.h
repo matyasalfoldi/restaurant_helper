@@ -7,6 +7,12 @@
 #include "model/Order.h"
 #include "persistence/DataStore.h"
 
+#ifdef WIN32
+#define OS_SEP '\\'
+#else
+#define OS_SEP '/'
+#endif
+
 class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<Model::Order>, Model::Order>
 {
     public:
@@ -19,7 +25,7 @@ class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<M
     protected:
 
     private:
-        std::string config_file = "config.txt";
+        std::string config_file = "config\\config.txt";
         std::vector<Model::Order> possible_orders;
 
         void parse_input(std::ifstream& config, bool(*predicate)(const std::string&));

@@ -86,6 +86,7 @@ namespace Model
                 };
         }
         incomes = persistence->get(income_criteria);
+        headers = persistence->get_column_headers();
         notify();
     }
 
