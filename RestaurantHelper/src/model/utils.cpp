@@ -33,23 +33,14 @@ namespace Model
                     std::getline(pred_date, pred_val, '-');
                     remove_leading_zeros(pred_val);
                 };
-            //Compare year
-            get_date_part();
-            if(input_val != pred_val)
+            //Compare year/month/day
+            for(std::size_t i = 0; i < 3; ++i)
             {
-                return false;
-            }
-            //Compare month
-            get_date_part();
-            if(input_val != pred_val)
-            {
-                return false;
-            }
-            //Compare day
-            get_date_part();
-            if(input_val != pred_val)
-            {
-                return false;
+                get_date_part();
+                if(input_val != pred_val)
+                {
+                    return false;
+                }
             }
             return true;
         };
