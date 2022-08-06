@@ -28,6 +28,9 @@ namespace Model
             std::string get_order_string(const Order& order) const;
             std::vector<Order> get_prepared_order() const;
             // TODO: Get from persistence
+            // Create an input in the OrderView for setting table count
+            // the persistence should write it to a table, which should
+            // get queried for the table count
             std::size_t get_table_count() const{return 3;};
             void notify();
             Order remove_order(int index);
