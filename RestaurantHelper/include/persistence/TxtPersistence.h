@@ -25,7 +25,7 @@ class TxtPersistence : public DataStore<std::vector<Model::Order>, std::vector<M
     protected:
 
     private:
-        std::string config_file = "config\\config.txt";
+        std::string config_file = "config.txt";
         std::vector<Model::Order> possible_orders;
 
         void parse_input(std::ifstream& config, bool(*predicate)(const std::string&));
