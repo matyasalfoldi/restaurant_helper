@@ -6,7 +6,7 @@
 
 namespace Model
 {
-    IncomeTableModel::IncomeTableModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, IncomeRow>> p)
+    IncomeTableModel::IncomeTableModel(DataStore<Model::IncomeRows, int, Model::IncomeRow>::Shared_Ptr&& p)
     {
         persistence = std::move(p);
         IncomeCriteria income_criteria;

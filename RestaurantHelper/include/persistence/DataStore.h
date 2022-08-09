@@ -1,6 +1,7 @@
 #ifndef PERSISTENCE_H
 #define PERSISTENCE_H
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -10,6 +11,9 @@ template <typename T, typename U, typename V>
 class DataStore
 {
     public:
+        using Shared_Ptr = std::shared_ptr<DataStore<T, U, V>>;
+        using Unique_Ptr = std::shared_ptr<DataStore<T, U, V>>;
+
         DataStore() = default;
         virtual T get(const Criteria<V>& criteria) = 0;
         virtual std::vector<std::string> get_column_headers() const = 0;

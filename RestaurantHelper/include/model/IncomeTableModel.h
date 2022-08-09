@@ -16,7 +16,7 @@ namespace Model
     class IncomeTableModel
     {
         public:
-            IncomeTableModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> p);
+            IncomeTableModel(DataStore<Model::IncomeRows, int, Model::IncomeRow>::Shared_Ptr&& p);
             void connect(Update_Func_IncomeTable update_func);
             std::string get_column_header(int col) const;
             std::size_t get_column_count() const;
@@ -32,7 +32,7 @@ namespace Model
             std::vector<Update_Func_IncomeTable> listeners;
             std::vector<Model::IncomeRow> incomes;
             std::vector<std::string> headers;
-            std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> persistence;
+            DataStore<Model::IncomeRows, int, Model::IncomeRow>::Shared_Ptr persistence;
     };
 }
 

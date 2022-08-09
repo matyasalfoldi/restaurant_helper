@@ -5,6 +5,9 @@
 
 namespace Model
 {
+    struct Order;
+    using Orders = std::vector<Order>;
+
     struct Order
     {
         Order()

@@ -9,7 +9,7 @@
 
 namespace Model
 {
-    IncomeModel::IncomeModel(std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>>&& p)
+    IncomeModel::IncomeModel(DataStore<Model::IncomeRows, int, Model::IncomeRow>::Shared_Ptr&& p)
     {
         persistence = std::move(p);
         show_all = false;
@@ -67,7 +67,7 @@ namespace Model
         );
     }
 
-    std::shared_ptr<DataStore<std::vector<Model::IncomeRow>, int, Model::IncomeRow>> IncomeModel::get_persistence()
+    DataStore<Model::IncomeRows, int, Model::IncomeRow>::Shared_Ptr IncomeModel::get_persistence()
     {
         return persistence;
     }

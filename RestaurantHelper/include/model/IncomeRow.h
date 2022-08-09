@@ -2,9 +2,14 @@
 #define INCOMEROW_H_INCLUDED
 
 #include <string>
+#include <vector>
 
 namespace Model
 {
+    struct IncomeRow;
+
+    using IncomeRows = std::vector<IncomeRow>;
+
     struct IncomeRow
     {
         IncomeRow(int i = 0, std::string d = "")
